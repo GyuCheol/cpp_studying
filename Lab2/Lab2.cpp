@@ -42,20 +42,9 @@ namespace lab2
 		float max = -FLT_MAX;
 		string trash;
 
-		while (true)
+		while (in.eof() == false)
 		{
 			in >> number;
-
-			if (in.eof())
-			{
-				in.clear();
-
-				out << setfill(' ');
-				out << setw(5) << left << "max:";
-				out << setw(15) << showpos << showpoint << internal << fixed << setprecision(3) << max;
-
-				break;
-			}
 
 			if (in.fail())
 			{
@@ -74,5 +63,9 @@ namespace lab2
 			out << setw(15) << showpos << showpoint << internal << fixed << setprecision(3) << number;
 			out << endl;
 		}
+
+		out << setfill(' ');
+		out << setw(5) << left << "max:";
+		out << setw(15) << showpos << showpoint << internal << fixed << setprecision(3) << max;
 	}
 }
