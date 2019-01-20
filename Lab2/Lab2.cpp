@@ -17,15 +17,9 @@ namespace lab2
 		int number;
 		string trash;
 
-		while (true)
+		while (in.eof() == false)
 		{
 			in >> number;
-
-			if (in.eof())
-			{
-				in.clear();
-				break;
-			}
 
 			if (in.fail())
 			{
@@ -33,7 +27,7 @@ namespace lab2
 				in >> trash;
 				continue;
 			}
-		
+
 			out << setfill(' ');
 			out << setw(12) << oct << number << ' ';
 			out << setw(10) << dec << number << ' ';

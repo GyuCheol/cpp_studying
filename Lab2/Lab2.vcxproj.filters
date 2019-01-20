@@ -27,4 +27,8 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="float_input.txt" />
+    <Text Include="int_input.txt" />
+  </ItemGroup>
 </Project>

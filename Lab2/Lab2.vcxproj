@@ -80,6 +80,10 @@
   <ItemGroup>
     <ClInclude Include="Lab2.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="float_input.txt" />
+    <Text Include="int_input.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
