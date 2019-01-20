@@ -9,10 +9,10 @@ namespace lab2
 	void PrintIntegers(std::istream& in, std::ostream& out)
 	{
 		// Header
-		cout << setw(12) << "oct" << ' ';
-		cout << setw(10) << "dec" << ' ';
-		cout << setw(8) << "hex" << endl;
-		cout << setw(12) << setfill('-') << "" << ' ' << setw(10) << "" << ' ' << setw(8) << "" << endl;
+		out << setw(12) << "oct" << ' ';
+		out << setw(10) << "dec" << ' ';
+		out << setw(8) << "hex" << endl;
+		out << setw(12) << setfill('-') << "" << ' ' << setw(10) << "" << ' ' << setw(8) << "" << endl;
 
 		int number;
 		string trash;
