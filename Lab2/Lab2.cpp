@@ -60,12 +60,11 @@ namespace lab2
 
 			out << setfill(' ');
 			out << setw(5) << "";
-			out << setw(15) << showpos << showpoint << internal << fixed << setprecision(3) << number;
-			out << endl;
+			out << setw(15) << showpos << showpoint << internal << fixed << setprecision(3) << number << endl;
 		}
 
 		out << setfill(' ');
 		out << setw(5) << left << "max:";
-		out << setw(15) << showpos << showpoint << internal << fixed << setprecision(3) << max;
+		out << setw(15) << showpos << showpoint << internal << fixed << setprecision(3) << max << endl;
 	}
 }
