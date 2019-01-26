@@ -3,8 +3,6 @@
 
 namespace lab3
 {
-	
-
 	TimeSheet::TimeSheet(const char* name, unsigned int maxEntries)
 		: mMaxEntries(maxEntries)
 		, mTimeTotal(0)
@@ -24,7 +22,8 @@ namespace lab3
 		memcpy(mTimeArray, other.mTimeArray, mMaxEntries * sizeof(int));
 	}
 
-	TimeSheet::~TimeSheet() {
+	TimeSheet::~TimeSheet()
+	{
 		delete[] mTimeArray;
 	}
 
@@ -57,7 +56,8 @@ namespace lab3
 
 	float TimeSheet::GetAverageTime() const
 	{
-		if (mTimeIndex == 0) {
+		if (mTimeIndex == 0)
+		{
 			return 0.0f;
 		}
 
@@ -66,7 +66,8 @@ namespace lab3
 
 	float TimeSheet::GetStandardDeviation() const
 	{
-		if (mTimeIndex == 0) {
+		if (mTimeIndex == 0)
+		{
 			return 0.0f;
 		}
 
