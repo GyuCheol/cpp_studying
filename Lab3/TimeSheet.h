@@ -18,10 +18,10 @@ namespace lab3
 		const std::string& GetName() const;
 
 	private:
-		int* mTimeArray;
-		int mTimeIndex;
-		int mTimeTotal;
-		int mMaxEntries;
+		unsigned int* mTimeArray;
+		unsigned int mTimeIndex;
+		unsigned int mTimeTotal;
+		unsigned int mMaxEntries;
 		std::string mName;
 	};
 }

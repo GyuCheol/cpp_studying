@@ -9,7 +9,7 @@ namespace lab3
 		, mTimeIndex(0)
 		, mName(name)
 	{
-		mTimeArray = new int[maxEntries];
+		mTimeArray = new unsigned int[maxEntries];
 	}
 
 	TimeSheet::TimeSheet(const TimeSheet& other)
@@ -18,7 +18,7 @@ namespace lab3
 		, mTimeTotal(other.mTimeTotal)
 		, mName(other.GetName())
 	{
-		mTimeArray = new int[mMaxEntries];
+		mTimeArray = new unsigned int[mMaxEntries];
 		memcpy(mTimeArray, other.mTimeArray, mMaxEntries * sizeof(int));
 	}
 
@@ -74,7 +74,7 @@ namespace lab3
 		float avg = GetAverageTime();
 		float total = .0f;
 
-		for (int i = 0; i < mTimeIndex; i++)
+		for (unsigned int i = 0; i < mTimeIndex; i++)
 		{
 			float diff = mTimeArray[i] - avg;
 
