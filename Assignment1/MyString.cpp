@@ -112,71 +112,21 @@ namespace assignment1
 
 	int MyString::IndexOf(const char* s)
 	{
-		size_t len = strlen(s);
 		
-		if (len == 0)
-		{
-			return -1;
-		}
-
-		int subStrIndex = 0;
-
-		for (size_t i = 0; i < mLength; i++)
-		{
-			if (mCharArray[i] == s[subStrIndex])
-			{
-				subStrIndex++;
-
-				if (subStrIndex == len)
-				{
-					return i - subStrIndex + 1;
-				}
-			}
-			else
-			{
-				subStrIndex = 0;
-			}
-		}
 
 		return -1;
 	}
 
 	int MyString::LastIndexOf(const char* s)
 	{
-		size_t len = strlen(s);
-
-		if (len == 0)
-		{
-			return -1;
-		}
-
-		int subStrIndex = len - 1;
-
-		for (size_t i = mLength - 1; i >= 0; i--)
-		{
-			if (mCharArray[i] == s[subStrIndex])
-			{
-				subStrIndex--;
-
-				if (subStrIndex < 0)
-				{
-					return i;
-				}
-			}
-			else
-			{
-				subStrIndex = len - 1;
-			}
-		}
+		
 
 		return -1;
 	}
 
 	void MyString::clear()
 	{
-		delete[] mCharArray;
 		mLength = 0;
-		mCharArray = new char[mCapacity];
 		mCharArray[0] = '\0';
 	}
 
@@ -241,10 +191,10 @@ namespace assignment1
 
 	void MyString::PadLeft(unsigned int totalLength, const char c)
 	{
-		size_t len = totalLength - mLength;
+		int len = totalLength - mLength;
 		MyString clone(*this);
 
-		if (len == 0)
+		if (len < 0)
 		{
 			return;
 		}
@@ -268,10 +218,10 @@ namespace assignment1
 
 	void MyString::PadRight(unsigned int totalLength, const char c)
 	{
-		size_t len = totalLength - mLength;
+		int len = totalLength - mLength;
 		MyString clone(*this);
 
-		if (len == 0)
+		if (len < 0)
 		{
 			return;
 		}
