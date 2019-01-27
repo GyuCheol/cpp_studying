@@ -240,12 +240,12 @@ namespace assignment1
 	void MyString::PadLeft(unsigned int totalLength, const char c)
 	{
 		int len = totalLength - mLength;
-		MyString clone(*this);
-
 		if (len < 0)
 		{
 			return;
 		}
+
+		MyString clone(*this);
 
 		char* pad = new char[len + 1];
 
@@ -269,12 +269,13 @@ namespace assignment1
 	void MyString::PadRight(unsigned int totalLength, const char c)
 	{
 		int len = totalLength - mLength;
-		MyString clone(*this);
 
 		if (len < 0)
 		{
 			return;
 		}
+
+		MyString clone(*this);
 
 		char* pad = new char[len + 1];
 
