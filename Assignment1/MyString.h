@@ -34,7 +34,7 @@ namespace assignment1
 		void clear();
 
 		void strSet(char* src, const char val, size_t size);
-		void strCopy(char* dst, const const char* src, size_t size);
+		void strCopy(char* dst, const char* src, size_t size);
 
 	};
 }
