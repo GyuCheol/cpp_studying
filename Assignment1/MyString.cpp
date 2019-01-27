@@ -34,7 +34,7 @@ namespace assignment1
 		return mCharArray;
 	}
 
-	size_t strlen(const char* s)
+	size_t MyString::strLen(const char* s)
 	{
 		int len = 0;
 
@@ -64,7 +64,7 @@ namespace assignment1
 
 	void MyString::Append(const char* s)
 	{
-		size_t len = strlen(s);
+		int len = strLen(s);
 
 		if (len == 0)
 		{
@@ -112,14 +112,60 @@ namespace assignment1
 
 	int MyString::IndexOf(const char* s)
 	{
-		
+		size_t subLen = strLen(s);
+
+		if (mLength < subLen)
+		{
+			return -1;
+		}
+
+		for (size_t i = 0; i <= mLength - subLen; i++)
+		{
+			int cLen = 0;
+
+			for (size_t j = 0; j < subLen; j++)
+			{
+				if (mCharArray[i + j] == s[j])
+				{
+					cLen++;
+				}
+			}
+
+			if (cLen == subLen)
+			{
+				return i;
+			}
+		}
 
 		return -1;
 	}
 
 	int MyString::LastIndexOf(const char* s)
 	{
-		
+		size_t subLen = strLen(s);
+
+		if (mLength < subLen)
+		{
+			return -1;
+		}
+
+		for (int i = mLength - subLen; i >= 0; i--)
+		{
+			int cLen = 0;
+
+			for (int j = 0; j < subLen; j++)
+			{
+				if (mCharArray[i + j] == s[j])
+				{
+					cLen++;
+				}
+			}
+
+			if (cLen == subLen)
+			{
+				return i;
+			}
+		}
 
 		return -1;
 	}
@@ -132,7 +178,7 @@ namespace assignment1
 
 	void MyString::Interleave(const char* s)
 	{
-		size_t subStrLen = strlen(s);
+		size_t subStrLen = strLen(s);
 
 		if (subStrLen == 0)
 		{
