@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 namespace assignment1
 {
@@ -25,5 +26,13 @@ namespace assignment1
 		bool operator==(const MyString& rhs) const;
 		void ToLower();
 		void ToUpper();
+
+	private:
+		unsigned int mLength;
+		unsigned int mCapacity;
+
+		char* mCharArray;
+		void Clear();
+
 	};
 }
