@@ -34,6 +34,34 @@ namespace assignment1
 		return mCharArray;
 	}
 
+	size_t strlen(const char* s)
+	{
+		int len = 0;
+
+		while (s[len] != '\0')
+		{
+			len++;
+		}
+
+		return len;
+	}
+
+	void MyString::strSet(char* src, const char val, size_t size)
+	{
+		for (size_t i = 0; i < size; i++)
+		{
+			src[i] = val;
+		}
+	}
+
+	void MyString::strCopy(char* dst, const char* src, size_t size)
+	{
+		for (size_t i = 0; i < size; i++)
+		{
+			dst[i] = src[i];
+		}
+	}
+
 	void MyString::Append(const char* s)
 	{
 		size_t len = strlen(s);
@@ -56,8 +84,8 @@ namespace assignment1
 
 			char* newMem = new char[tmpCapa];
 			
-			memcpy(newMem, mCharArray, mLength);
-			memcpy(&newMem[mLength], s, len);
+			strCopy(newMem, mCharArray, mLength);
+			strCopy(&newMem[mLength], s, len);
 
 			delete[] mCharArray;
 
@@ -66,7 +94,7 @@ namespace assignment1
 		}
 		else 
 		{
-			memcpy(&mCharArray[mLength], s, len);
+			strCopy(&mCharArray[mLength], s, len);
 		}
 
 		mLength += len;
@@ -144,7 +172,7 @@ namespace assignment1
 		return -1;
 	}
 
-	void MyString::Clear()
+	void MyString::clear()
 	{
 		delete[] mCharArray;
 		mLength = 0;
@@ -171,7 +199,7 @@ namespace assignment1
 
 		tmpArray[subStrLen + strLen] = '\0';
 
-		Clear();
+		clear();
 
 		while (strId < strLen || subStrId < subStrLen)
 		{
@@ -200,7 +228,7 @@ namespace assignment1
 			return false;
 		}
 
-		memcpy(&mCharArray[index], &mCharArray[index + 1], mLength - index);
+		strCopy(&mCharArray[index], &mCharArray[index + 1], mLength - index);
 		mLength--;
 
 		return true;
@@ -225,9 +253,9 @@ namespace assignment1
 
 		pad[len] = '\0';
 
-		Clear();
+		clear();
 
-		memset(pad, c, len);
+		strSet(pad, c, len);
 
 		Append(pad);
 		Append(clone.GetCString());
@@ -252,9 +280,9 @@ namespace assignment1
 
 		pad[len] = '\0';
 
-		Clear();
+		clear();
 
-		memset(pad, c, len);
+		strSet(pad, c, len);
 
 		Append(clone.GetCString());
 		Append(pad);

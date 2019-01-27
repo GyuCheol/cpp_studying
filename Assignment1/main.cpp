@@ -1,4 +1,5 @@
 #include "MyString.h"
+#include <iostream>
 
 using namespace assignment1;
 using namespace std;
@@ -22,4 +23,5 @@ int main()
 
 	s2.PadRight(8, '-');
 	cout << s2.GetCString() << endl;
+
 }

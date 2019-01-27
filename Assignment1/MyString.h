@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>
 
 namespace assignment1
 {
@@ -32,7 +31,10 @@ namespace assignment1
 		unsigned int mCapacity;
 
 		char* mCharArray;
-		void Clear();
+		void clear();
+
+		void strSet(char* src, const char val, size_t size);
+		void strCopy(char* dst, const const char* src, size_t size);
 
 	};
 }
