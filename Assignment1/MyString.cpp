@@ -149,11 +149,11 @@ namespace assignment1
 			return -1;
 		}
 
-		for (int i = mLength - subLen; i >= 0; i--)
+		for (size_t i = mLength - subLen; i >= 0; i--)
 		{
 			int cLen = 0;
 
-			for (int j = 0; j < subLen; j++)
+			for (size_t j = 0; j < subLen; j++)
 			{
 				if (mCharArray[i + j] == s[j])
 				{
@@ -215,6 +215,8 @@ namespace assignment1
 		}
 
 		Append(tmpArray);
+
+		delete[] tmpArray;
 	}
 
 	bool MyString::RemoveAt(unsigned int index)
@@ -255,6 +257,8 @@ namespace assignment1
 
 		Append(pad);
 		Append(clone.GetCString());
+
+		delete[] pad;
 	}
 
 	void MyString::PadRight(unsigned int totalLength)
@@ -282,6 +286,8 @@ namespace assignment1
 
 		Append(clone.GetCString());
 		Append(pad);
+
+		delete[] pad;
 	}
 
 	void MyString::Reverse()
