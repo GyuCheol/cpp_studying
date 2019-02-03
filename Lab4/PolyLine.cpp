@@ -17,7 +17,7 @@ namespace lab4
 	PolyLine::PolyLine(const PolyLine& other)
 		: PolyLine()
 	{
-		for (size_t i = 0; i < mPointCount; i++)
+		for (size_t i = 0; i < other.mPointCount; i++)
 		{
 			AddPoint(other.mPointArray[i]->mX, other.mPointArray[i]->mY);
 		}
@@ -94,11 +94,6 @@ namespace lab4
 			minY = Min(minY, mPointArray[i]->mY);
 			maxX = Max(maxX, mPointArray[i]->mX);
 			maxY = Max(maxY, mPointArray[i]->mY);
-		}
-
-		if ((maxX - minX) == 0 || (maxY - minY) == 0)
-		{
-			return false;
 		}
 
 		outMin->mX = minX;
