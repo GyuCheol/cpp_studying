@@ -9,13 +9,13 @@ namespace lab4
 	PolyLine::PolyLine()
 		: mPointCount(0)
 	{
-		mPointArray = new Point*[10];
+		mPointArray = new const Point*[10];
 	}
 
 	PolyLine::PolyLine(const PolyLine& other)
 		: mPointCount(other.mPointCount)
 	{
-		mPointArray = new Point*[10];
+		mPointArray = new const Point*[10];
 		
 		for (size_t i = 0; i < mPointCount; i++)
 		{
@@ -53,7 +53,7 @@ namespace lab4
 			return false;
 		}
 
-		mPointArray[mPointCount] = (Point*) point;
+		mPointArray[mPointCount] = point;
 		mPointCount++;
 
 		return true;
@@ -65,6 +65,8 @@ namespace lab4
 		{
 			return false;
 		}
+
+		delete mPointArray[i];
 
 		for (size_t id = i; id < mPointCount - 1; id++)
 		{
@@ -117,7 +119,7 @@ namespace lab4
 		outMax->mX = maxX;
 		outMax->mY = maxY;
 
-		return !((maxX - minX == 0) || (maxY - minY == 0));
+		return !((maxX - minX) == 0 || (maxY - minY) == 0);
 	}
 
 	const Point* PolyLine::operator[](unsigned int i) const
