@@ -25,7 +25,7 @@ namespace lab4
 
 	PolyLine::~PolyLine()
 	{
-		for (size_t i = 0; i < mPointCount; i++)
+		for (size_t i = 0; i < MAX_COUNT; i++)
 		{
 			delete mPointArray[i];
 		}
@@ -92,11 +92,12 @@ namespace lab4
 		{
 			minX = Min(minX, mPointArray[i]->mX);
 			minY = Min(minY, mPointArray[i]->mY);
-			maxX = Min(maxX, mPointArray[i]->mX);
-			maxY = Min(maxY, mPointArray[i]->mY);
+			maxX = Max(maxX, mPointArray[i]->mX);
+			maxY = Max(maxY, mPointArray[i]->mY);
 		}
 
-		if ((maxX - minX) == 0 || (maxY - minY) == 0) {
+		if ((maxX - minX) == 0 || (maxY - minY) == 0)
+		{
 			return false;
 		}
 
