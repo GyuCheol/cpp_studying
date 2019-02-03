@@ -15,17 +15,17 @@ namespace lab4
 	}
 
 	PolyLine::PolyLine(const PolyLine& other)
-		: mPointCount(other.mPointCount)
+		: PolyLine()
 	{
 		for (size_t i = 0; i < mPointCount; i++)
 		{
-			mPointArray[i] = new Point(other.mPointArray[i]->mX, other.mPointArray[i]->mY);
+			AddPoint(other.mPointArray[i]->mX, other.mPointArray[i]->mY);
 		}
 	}
 
 	PolyLine::~PolyLine()
 	{
-		for (size_t i = 0; i < MAX_COUNT; i++)
+		for (size_t i = 0; i < mPointCount; i++)
 		{
 			delete mPointArray[i];
 		}

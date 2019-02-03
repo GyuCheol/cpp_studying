@@ -1,13 +1,12 @@
 #pragma once
 
 #include "Point.h"
+#define MAX_COUNT 10
 
 namespace lab4
 {
 	class PolyLine
 	{
-		const int MAX_COUNT = 10;
-
 	public:
 
 		PolyLine();
