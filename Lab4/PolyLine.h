@@ -6,8 +6,9 @@ namespace lab4
 {
 	class PolyLine
 	{
-	public:
 		const int MAX_COUNT = 10;
+
+	public:
 
 		PolyLine();
 		PolyLine(const PolyLine& other);

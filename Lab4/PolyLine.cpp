@@ -63,6 +63,8 @@ namespace lab4
 			mPointArray[id] = mPointArray[id + 1];
 		}
 
+		mPointCount--;
+
 		return true;
 	}
 
@@ -102,7 +104,7 @@ namespace lab4
 		outMax->mX = maxX;
 		outMax->mY = maxY;
 
-		return outMin->mX == outMax->mX || outMin->mY == outMax->mY;
+		return !(outMin->mX == outMax->mX || outMin->mY == outMax->mY);
 	}
 
 	const Point* PolyLine::operator[](unsigned int i) const
