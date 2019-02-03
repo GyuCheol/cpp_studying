@@ -3,20 +3,20 @@
 #include <iostream>
 #include "PolyLine.h"
 
+#define Min(a, b) a < b ? a : b
+#define Max(a, b) a > b ? a : b
+
 namespace lab4
 {
 	
 	PolyLine::PolyLine()
 		: mPointCount(0)
 	{
-		mPointArray = new const Point*[10];
 	}
 
 	PolyLine::PolyLine(const PolyLine& other)
 		: mPointCount(other.mPointCount)
 	{
-		mPointArray = new const Point*[10];
-		
 		for (size_t i = 0; i < mPointCount; i++)
 		{
 			mPointArray[i] = new Point(other.mPointArray[i]->mX, other.mPointArray[i]->mY);
@@ -25,7 +25,10 @@ namespace lab4
 
 	PolyLine::~PolyLine()
 	{
-		delete[] mPointArray;
+		for (size_t i = 0; i < mPointCount; i++)
+		{
+			delete mPointArray[i];
+		}
 	}
 
 	bool PolyLine::AddPoint(float x, float y)
@@ -48,7 +51,7 @@ namespace lab4
 			return false;
 		}
 
-		mPointArray[mPointCount] = (Point*) point;
+		mPointArray[mPointCount] = point;
 		mPointCount++;
 
 		return true;
@@ -60,6 +63,8 @@ namespace lab4
 		{
 			return false;
 		}
+
+		delete mPointArray[i];
 
 		for (size_t id = i; id < mPointCount - 1; id++)
 		{
@@ -78,48 +83,27 @@ namespace lab4
 			return false;
 		}
 
-		float minX = std::numeric_limits<float>::max();
-		float minY = std::numeric_limits<float>::max();
-		float maxX = std::numeric_limits<float>::lowest();
-		float maxY = std::numeric_limits<float>::lowest();
+		float minX = std::numeric_limits<float>().max();
+		float minY = std::numeric_limits<float>().max();
+		float maxX = std::numeric_limits<float>().lowest();
+		float maxY = std::numeric_limits<float>().lowest();
 
 		for (size_t i = 0; i < mPointCount; i++)
 		{
-			if (minX > mPointArray[i]->mX)
-			{
-				minX = mPointArray[i]->mX;
-			}
+			minX = Min(minX, mPointArray[i]->mX);
+			minY = Min(minY, mPointArray[i]->mY);
+			maxX = Min(maxX, mPointArray[i]->mX);
+			maxY = Min(maxY, mPointArray[i]->mY);
+		}
 
-			if (minY > mPointArray[i]->mY)
-			{
-				minY = mPointArray[i]->mY;
-			}
-
-			if (maxX < mPointArray[i]->mX)
-			{
-				maxX = mPointArray[i]->mX;
-			}
-
-			if (maxY < mPointArray[i]->mY)
-			{
-				maxY = mPointArray[i]->mY;
-			}
+		if ((maxX - minX) == 0 || (maxY - minY) == 0) {
+			return false;
 		}
 
 		outMin->mX = minX;
 		outMin->mY = minY;
 		outMax->mX = maxX;
 		outMax->mY = maxY;
-
-		if ((maxX - minX) == 0)
-		{
-			return false;
-		}
-
-		if ((maxY - minY) == 0)
-		{
-			return false;
-		}
 
 		return true;
 	}

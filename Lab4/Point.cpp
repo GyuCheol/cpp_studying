@@ -38,6 +38,7 @@ namespace lab4
 		return Point(mX * operand, mY * operand);
 	}
 
+
 	float Point::GetX() const
 	{
 		return mX;
