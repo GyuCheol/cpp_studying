@@ -25,11 +25,6 @@ namespace lab4
 
 	PolyLine::~PolyLine()
 	{
-		for (size_t i = 0; i < mPointCount; i++)
-		{
-			delete mPointArray[i];
-		}
-
 		delete[] mPointArray;
 	}
 
@@ -53,7 +48,7 @@ namespace lab4
 			return false;
 		}
 
-		mPointArray[mPointCount] = point;
+		mPointArray[mPointCount] = (Point*) point;
 		mPointCount++;
 
 		return true;
@@ -65,8 +60,6 @@ namespace lab4
 		{
 			return false;
 		}
-
-		delete mPointArray[i];
 
 		for (size_t id = i; id < mPointCount - 1; id++)
 		{
@@ -115,11 +108,20 @@ namespace lab4
 
 		outMin->mX = minX;
 		outMin->mY = minY;
-
 		outMax->mX = maxX;
 		outMax->mY = maxY;
 
-		return !((maxX - minX) == 0 || (maxY - minY) == 0);
+		if ((maxX - minX) == 0)
+		{
+			return false;
+		}
+
+		if ((maxY - minY) == 0)
+		{
+			return false;
+		}
+
+		return true;
 	}
 
 	const Point* PolyLine::operator[](unsigned int i) const

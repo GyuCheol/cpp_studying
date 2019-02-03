@@ -11,7 +11,17 @@ void TestCaseMain();
 
 int main()
 {
-	TestCaseMain();
+	PolyLine pl;
+
+	pl.AddPoint(1.0f, 1.1f);
+	pl.AddPoint(1.1f, 1.2f);
+
+	Point min;
+	Point max;
+
+	cout << pl.TryGetMinBoundingRectangle(&min, &max) << endl;
+
+	// TestCaseMain();
 
 	return 0;
 }
