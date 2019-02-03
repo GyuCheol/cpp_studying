@@ -9,20 +9,28 @@ namespace lab4
 	PolyLine::PolyLine()
 		: mPointCount(0)
 	{
+		mPointArray = new Point*[10];
 	}
 
 	PolyLine::PolyLine(const PolyLine& other)
 		: mPointCount(other.mPointCount)
 	{
+		mPointArray = new Point*[10];
 		
 		for (size_t i = 0; i < mPointCount; i++)
 		{
-			mPointArray[i] = other.mPointArray[i];
+			mPointArray[i] = new Point(other.mPointArray[i]->mX, other.mPointArray[i]->mY);
 		}
 	}
 
 	PolyLine::~PolyLine()
 	{
+		for (size_t i = 0; i < mPointCount; i++)
+		{
+			delete mPointArray[i];
+		}
+
+		delete[] mPointArray;
 	}
 
 	bool PolyLine::AddPoint(float x, float y)
@@ -32,7 +40,7 @@ namespace lab4
 			return false;
 		}
 
-		mPointArray[mPointCount] = Point(x, y);
+		mPointArray[mPointCount] = new Point(x, y);
 		mPointCount++;
 
 		return true;
@@ -45,7 +53,7 @@ namespace lab4
 			return false;
 		}
 
-		mPointArray[mPointCount] = Point(point->GetX(), point->GetY());
+		mPointArray[mPointCount] = (Point*) point;
 		mPointCount++;
 
 		return true;
@@ -70,6 +78,11 @@ namespace lab4
 
 	bool PolyLine::TryGetMinBoundingRectangle(Point* outMin, Point* outMax) const
 	{
+		if (mPointCount == 0)
+		{
+			return false;
+		}
+
 		float minX = std::numeric_limits<float>::max();
 		float minY = std::numeric_limits<float>::max();
 		float maxX = std::numeric_limits<float>::lowest();
@@ -77,24 +90,24 @@ namespace lab4
 
 		for (size_t i = 0; i < mPointCount; i++)
 		{
-			if (minX > mPointArray[i].mX)
+			if (minX > mPointArray[i]->mX)
 			{
-				minX = mPointArray[i].mX;
+				minX = mPointArray[i]->mX;
 			}
 
-			if (minY > mPointArray[i].mY)
+			if (minY > mPointArray[i]->mY)
 			{
-				minY = mPointArray[i].mY;
+				minY = mPointArray[i]->mY;
 			}
 
-			if (maxX < mPointArray[i].mX)
+			if (maxX < mPointArray[i]->mX)
 			{
-				maxX = mPointArray[i].mX;
+				maxX = mPointArray[i]->mX;
 			}
 
-			if (maxY < mPointArray[i].mY)
+			if (maxY < mPointArray[i]->mY)
 			{
-				maxY = mPointArray[i].mY;
+				maxY = mPointArray[i]->mY;
 			}
 		}
 
@@ -104,7 +117,7 @@ namespace lab4
 		outMax->mX = maxX;
 		outMax->mY = maxY;
 
-		return !(outMin->mX == outMax->mX || outMin->mY == outMax->mY);
+		return !((maxX - minX == 0) || (maxY - minY == 0));
 	}
 
 	const Point* PolyLine::operator[](unsigned int i) const
@@ -114,6 +127,6 @@ namespace lab4
 			return NULL;
 		}
 
-		return &mPointArray[i];
+		return mPointArray[i];
 	}
 }
