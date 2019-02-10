@@ -15,7 +15,7 @@ namespace lab5
 		unsigned int IFenceable::GetMinimumFencesCount() const;
 		unsigned int IFenceable::GetFencePrice(eFenceType fenceType) const;
 
-	private:
+	protected:
 		unsigned int mWidth;
 		unsigned int mHeight;
 
