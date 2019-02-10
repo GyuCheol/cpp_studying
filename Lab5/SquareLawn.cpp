@@ -23,9 +23,7 @@ namespace lab5
 
 	unsigned int SquareLawn::GetMinimumFencesCount() const
 	{
-		unsigned int lengthCount = GetSizeCountEachLengthByCm(mLength * 100, 25);
-
-		return lengthCount * 4;
+		return std::ceil(mLength / 0.25) * 4;
 	}
 
 

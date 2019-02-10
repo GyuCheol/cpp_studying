@@ -1,5 +1,5 @@
 #pragma once
-
+#include <cmath>
 #include "eGrassType.h"
 
 namespace lab5
@@ -17,9 +17,6 @@ namespace lab5
 
 		unsigned int GetGrassPrice(eGrassType grassType) const;
 		unsigned int GetMinimumSodRollsCount() const;
-
-	protected:
-		unsigned int GetSizeCountEachLengthByCm(unsigned int size, unsigned int length) const;
 
 	};
 }

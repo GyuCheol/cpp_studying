@@ -11,7 +11,7 @@ namespace lab5
 
 	unsigned int CircleLawn::GetArea() const
 	{
-		return (unsigned int) (mRadius * mRadius * PI);
+		return (unsigned int) std::round(mRadius * mRadius * PI);
 	}
 
 }

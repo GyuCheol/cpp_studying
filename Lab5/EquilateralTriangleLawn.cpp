@@ -11,7 +11,9 @@ namespace lab5
 
 	unsigned int EquilateralTriangleLawn::GetArea() const
 	{
-		return (unsigned int) (mLength * mLength / 2);
+		double height = mLength * (std::sqrt(3) / 2);
+
+		return (unsigned int) std::round(mLength * height / 2);
 	}
 
 	unsigned int EquilateralTriangleLawn::GetFencePrice(eFenceType fenceType) const
@@ -23,9 +25,7 @@ namespace lab5
 
 	unsigned int EquilateralTriangleLawn::GetMinimumFencesCount() const
 	{
-		int lengthCount = GetSizeCountEachLengthByCm(mLength * 100, 30);
-
-		return lengthCount * 3;
+		return (unsigned int) std::ceil(mLength / 0.25) * 3;
 	}
 
 }

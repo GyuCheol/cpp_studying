@@ -10,10 +10,7 @@ namespace lab5
 
 	unsigned int RectangleLawn::GetMinimumFencesCount() const
 	{
-		int widthCount = GetSizeCountEachLengthByCm(mWidth * 100, 25);
-		int heightCount = GetSizeCountEachLengthByCm(mHeight * 100, 25);
-
-		return (widthCount * 2) + (heightCount * 2);
+		return (std::ceil(mWidth / 0.25) * 2) + (std::ceil(mHeight / 0.25) * 2);
 	}
 
 	unsigned int RectangleLawn::GetFencePrice(eFenceType fenceType) const
