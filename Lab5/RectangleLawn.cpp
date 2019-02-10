@@ -10,12 +10,18 @@ namespace lab5
 
 	unsigned int RectangleLawn::GetMinimumFencesCount() const
 	{
-		return (unsigned int) (std::ceil(mWidth / 0.25) * 2) + (std::ceil(mHeight / 0.25) * 2);
+		unsigned int widthCount = (unsigned int) std::ceil(mWidth / 0.25);
+		unsigned int heightCount = (unsigned int) std::ceil(mHeight / 0.25);
+
+		return (widthCount * 2) + (heightCount * 2);
 	}
 
 	unsigned int RectangleLawn::GetFencePrice(eFenceType fenceType) const
 	{
-		return (unsigned int) (GetMinimumFencesCount() * 0.25) * (fenceType == lab5::RED_CEDAR ? 6 : 7);
+		unsigned int meter = (unsigned int)GetMinimumFencesCount() * 0.25;
+		unsigned int price = fenceType == lab5::RED_CEDAR ? 6 : 7;
+
+		return meter * price;
 	}
 
 	RectangleLawn::RectangleLawn(unsigned int width, unsigned height)
