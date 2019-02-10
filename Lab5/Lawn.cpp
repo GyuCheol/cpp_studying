@@ -33,7 +33,7 @@ namespace lab5
 			break;
 		}
 
-		double amount = (GetArea() * cent) / 100;
+		double amount = (double) (GetArea() * cent) / 100;
 
 		return (unsigned int)std::ceil(amount);
 	}
