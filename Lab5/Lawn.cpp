@@ -33,7 +33,9 @@ namespace lab5
 			break;
 		}
 
-		return (unsigned int) std::ceil( (double) (GetArea() * cent) / 100);
+		double amount = (GetArea() * cent) / 100;
+
+		return (unsigned int)std::ceil(amount);
 	}
 
 	unsigned int Lawn::GetMinimumSodRollsCount() const

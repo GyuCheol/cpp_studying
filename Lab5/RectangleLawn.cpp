@@ -18,7 +18,7 @@ namespace lab5
 
 	unsigned int RectangleLawn::GetFencePrice(eFenceType fenceType) const
 	{
-		unsigned int meter = (unsigned int)GetMinimumFencesCount() * 0.25;
+		unsigned int meter = (unsigned int) (GetMinimumFencesCount() * 0.25);
 		unsigned int price = fenceType == lab5::RED_CEDAR ? 6 : 7;
 
 		return meter * price;
