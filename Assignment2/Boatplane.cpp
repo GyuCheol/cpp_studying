@@ -7,6 +7,12 @@ namespace assignment2
 	{
 	}
 
+	Boatplane::Boatplane(const Boatplane& boatplane)
+		: Vehicle(boatplane.GetMaxPassengersCount())
+	{
+		Migrate((Boatplane&) boatplane);
+	}
+
 	Boatplane::~Boatplane()
 	{
 	}
@@ -19,7 +25,7 @@ namespace assignment2
 	}
 	unsigned int Boatplane::GetFlySpeed()
 	{
-		return (unsigned int)((150.f * powf(EulerNum, ((float) -getAllPersonWeight() + 500.f) / 300.f)) + 0.5f);
+		return (unsigned int)((150.f * powf(EulerNum, ((float)(getAllPersonWeight() * -1) + 500.f) / 300.f)) + 0.5f);
 	}
 	unsigned int Boatplane::GetSailSpeed()
 	{

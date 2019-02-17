@@ -8,6 +8,12 @@ namespace assignment2
 	{
 	}
 
+	Person::Person(const Person& person)
+		: mWeight(person.GetWeight())
+		, mName(std::string(person.GetName()))
+	{
+	}
+
 	Person::~Person()
 	{
 	}

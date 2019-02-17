@@ -25,7 +25,7 @@ namespace assignment2
 		unsigned int GetPassengersCount() const;
 		unsigned int GetMaxPassengersCount() const;
 		unsigned int GetTravelLength() const;
-		void MovePassengersToAnotherVehicle(Vehicle& vehicle);
+		void Migrate(Vehicle& vehicle);
 
 	protected:
 		int getAllPersonWeight() const;

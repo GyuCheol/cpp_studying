@@ -23,12 +23,12 @@ namespace assignment2
 
 	unsigned int Airplane::GetDriveSpeed()
 	{
-		return (unsigned int)((4.f * powf(EulerNum, ((float) -getAllPersonWeight() + 400.f) / 70.f)) + 0.5f);
+		return (unsigned int)((4.f * powf(EulerNum, ((float)(getAllPersonWeight() * -1) + 400.f) / 70.f)) + 0.5f);
 	}
 
 	unsigned int Airplane::GetFlySpeed()
 	{
-		return (unsigned int)((200.f * powf(EulerNum, ((float) -getAllPersonWeight() + 800.f) / 500.f)) + 0.5f);
+		return (unsigned int)((200.f * powf(EulerNum, ((float)(getAllPersonWeight() * -1) + 800.f) / 500.f)) + 0.5f);
 	}
 
 	void Airplane::Travel()
@@ -48,8 +48,8 @@ namespace assignment2
 	{
 		Boatplane bp(GetMaxPassengersCount() + boat.GetMaxPassengersCount());
 
-		MovePassengersToAnotherVehicle(bp);
-		boat.MovePassengersToAnotherVehicle(bp);
+		bp.Migrate(*this);
+		bp.Migrate(boat);
 
 		return bp;
 	}

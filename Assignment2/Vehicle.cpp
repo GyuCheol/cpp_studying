@@ -12,6 +12,7 @@ namespace assignment2
 
 	Vehicle::~Vehicle()
 	{
+		ClearPassenger();
 	}
 
 	bool Vehicle::AddPassenger(const Person* person)
@@ -50,7 +51,7 @@ namespace assignment2
 	{
 		for (size_t i = 0; i < mPassengersCount; i++)
 		{
-			mPersonArray[i] = NULL;
+			delete mPersonArray[i];
 		}
 
 		mPassengersCount = 0;
@@ -83,14 +84,14 @@ namespace assignment2
 		return total;
 	}
 
-	void Vehicle::MovePassengersToAnotherVehicle(Vehicle& vehicle)
+	void Vehicle::Migrate(Vehicle& vehicle)
 	{
-		for (unsigned int i = 0; i < mPassengersCount; i++)
+		for (unsigned int i = 0; i < vehicle.GetPassengersCount(); i++)
 		{
-			vehicle.AddPassenger(GetPassenger(i));
+			AddPassenger(new Person(*vehicle.GetPassenger(i)));
 		}
 
-		ClearPassenger();
+		vehicle.ClearPassenger();
 	}
 
 	const Person* Vehicle::GetPassenger(unsigned int i) const
