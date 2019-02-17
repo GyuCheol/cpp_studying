@@ -7,7 +7,7 @@ namespace assignment2
 	class DeusExMachina
 	{
 	public:
-		const int MAX_COUNT = 10;
+		const int MaxCount = 10;
 
 		static DeusExMachina* GetInstance();
 		void Travel() const;

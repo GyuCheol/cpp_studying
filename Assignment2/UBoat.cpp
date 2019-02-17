@@ -19,11 +19,11 @@ namespace assignment2
 	}
 	unsigned int UBoat::GetDiveSpeed()
 	{
-		return (unsigned int)((500.f * log(((float)GetAllPersonWeight() + 150.f) / 150.f) + 30.f) + 0.5f);
+		return (unsigned int)((500.f * log(((float)getAllPersonWeight() + 150.f) / 150.f) + 30.f) + 0.5f);
 	}
 	unsigned int UBoat::GetSailSpeed()
 	{
-		int a = 550 - (GetAllPersonWeight() / 10);
+		int a = 550 - (getAllPersonWeight() / 10);
 
 		return Max(a, 200);
 	}

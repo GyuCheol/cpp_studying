@@ -71,7 +71,7 @@ namespace assignment2
 		return mTravelLength;
 	}
 
-	int Vehicle::GetAllPersonWeight() const
+	int Vehicle::getAllPersonWeight() const
 	{
 		int total = 0;
 
@@ -83,7 +83,7 @@ namespace assignment2
 		return total;
 	}
 
-	void Vehicle::MovePassengersToAnotherVehicle(Vehicle & vehicle)
+	void Vehicle::MovePassengersToAnotherVehicle(Vehicle& vehicle)
 	{
 		for (unsigned int i = 0; i < mPassengersCount; i++)
 		{

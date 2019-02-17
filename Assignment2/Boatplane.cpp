@@ -19,11 +19,11 @@ namespace assignment2
 	}
 	unsigned int Boatplane::GetFlySpeed()
 	{
-		return (unsigned int)((150.f * powf(EULER_NUM, (float)(-GetAllPersonWeight() + 500) / 300)) + 0.5f);
+		return (unsigned int)((150.f * powf(EulerNum, ((float)-getAllPersonWeight() + 500.f) / 300.f)) + 0.5f);
 	}
 	unsigned int Boatplane::GetSailSpeed()
 	{
-		return (unsigned int)Max((int)(800.f - (1.7f * GetAllPersonWeight())), 20);
+		return (unsigned int)Max((int)(800.f - (1.7f * getAllPersonWeight())), 20);
 	}
 	void Boatplane::Travel()
 	{

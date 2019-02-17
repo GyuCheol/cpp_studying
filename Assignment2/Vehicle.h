@@ -10,7 +10,7 @@ namespace assignment2
 	class Vehicle
 	{
 	public:
-		const float EULER_NUM = 2.71828182845904523536f;
+		const float EulerNum = 2.71828182845904523536f;
 
 		Vehicle(unsigned int maxPassengersCount);
 		~Vehicle();
@@ -28,7 +28,7 @@ namespace assignment2
 		void MovePassengersToAnotherVehicle(Vehicle& vehicle);
 
 	protected:
-		int GetAllPersonWeight() const;
+		int getAllPersonWeight() const;
 		unsigned int mTravelIndex;
 		unsigned int mRestTime;
 		unsigned int mTravelLength;

@@ -13,7 +13,7 @@ namespace assignment2
 
 	unsigned int Boat::GetSailSpeed()
 	{
-		return Max(800 - (10 * GetAllPersonWeight()), 20);
+		return Max(800 - (10 * getAllPersonWeight()), 20);
 	}
 
 	unsigned int Boat::GetMaxSpeed()

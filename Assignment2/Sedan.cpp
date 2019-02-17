@@ -46,7 +46,7 @@ namespace assignment2
 	}
 	unsigned int Sedan::GetDriveSpeed()
 	{
-		int weight = GetAllPersonWeight();
+		int weight = getAllPersonWeight();
 
 		if (mTrailer != NULL)
 		{
@@ -69,7 +69,8 @@ namespace assignment2
 		{
 			return 380;
 		}
-		else {
+		else
+		{
 			return 300;
 		}
 	}
