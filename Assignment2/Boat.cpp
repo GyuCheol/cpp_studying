@@ -42,8 +42,8 @@ namespace assignment2
 	{
 		Boatplane bp(GetMaxPassengersCount() + plane.GetMaxPassengersCount());
 
-		Migrate(plane);
-		Migrate(*this);
+		bp.Migrate(plane);
+		bp.Migrate(*this);
 
 		return bp;
 	}
