@@ -24,7 +24,7 @@ namespace assignment2
 
 	bool DeusExMachina::AddVehicle(Vehicle* vehicle)
 	{
-		if (mVehicleCount == MaxCount)
+		if (mVehicleCount == MaxCount || vehicle == NULL)
 		{
 			return false;
 		}
@@ -79,4 +79,5 @@ namespace assignment2
 		: mVehicleCount(0)
 	{
 	}
+
 }
