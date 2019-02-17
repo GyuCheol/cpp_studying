@@ -11,10 +11,7 @@ namespace assignment2
 
 	Sedan::~Sedan()
 	{
-		if (mHasTrailer == true)
-		{
-			delete mTrailer;
-		}
+		RemoveTrailer();
 	}
 
 	bool Sedan::AddTrailer(const Trailer* trailer)
