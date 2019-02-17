@@ -13,7 +13,7 @@ namespace assignment2
 		const float EulerNum = 2.71828182845904523536f;
 
 		Vehicle(unsigned int maxPassengersCount);
-		~Vehicle();
+		virtual ~Vehicle();
 
 		virtual unsigned int GetMaxSpeed() = 0;
 		virtual void Travel() = 0;

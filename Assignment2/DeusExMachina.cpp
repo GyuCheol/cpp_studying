@@ -80,12 +80,4 @@ namespace assignment2
 	{
 	}
 
-	DeusExMachina::~DeusExMachina()
-	{
-		for (size_t i = 0; i < mVehicleCount; i++)
-		{
-			delete mVehicle[i];
-		}
-	}
-
 }

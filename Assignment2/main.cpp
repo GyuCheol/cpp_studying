@@ -21,25 +21,16 @@ int main()
 	sedan1->AddTrailer(new Trailer(50));
 
 	deusExMachina1->AddVehicle(sedan1);
+
+	
 	
 	deusExMachina1->Travel();
 	deusExMachina1->Travel();
 	deusExMachina1->Travel();
 	deusExMachina1->Travel();
 	deusExMachina1->Travel();
-	deusExMachina1->Travel(); // X
-	deusExMachina1->Travel(); // X
-
-	sedan1->RemoveTrailer();
-
-	deusExMachina1->Travel();
-	deusExMachina1->Travel();
-	deusExMachina1->Travel();
-	deusExMachina1->Travel();
-	deusExMachina1->Travel();
-	deusExMachina1->Travel(); // X
-	deusExMachina1->Travel();
-
+	
+	deusExMachina1->RemoveVehicle(0);
 
 	return 0;
 }
