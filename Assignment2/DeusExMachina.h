@@ -15,14 +15,6 @@ namespace assignment2
 		bool RemoveVehicle(unsigned int i);
 		const Vehicle* GetFurthestTravelled() const;
 
-		~DeusExMachina() {
-
-			for (size_t i = 0; i < mVehicleCount; i++)
-			{
-				delete mVehicle[i];
-			}
-		};
-
 	private:
 		DeusExMachina();
 		

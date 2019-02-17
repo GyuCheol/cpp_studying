@@ -69,7 +69,6 @@ int main()
 	bool bAdded = sedan2->AddTrailer(new Trailer(50));
 	assert(bAdded);
 
-
 	bAdded = sedan2->AddTrailer(new Trailer(60));
 	assert(!bAdded);
 
@@ -82,6 +81,7 @@ int main()
 	deusExMachina1->AddVehicle(sedan);
 	deusExMachina1->AddVehicle(sedan2);
 
+	// deusExMachina1->RemoveVehicle(5);
 
 	deusExMachina1->AddVehicle(uboat);
 	deusExMachina1->AddVehicle(new Airplane(5));

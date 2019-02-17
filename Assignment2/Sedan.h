@@ -23,7 +23,6 @@ namespace assignment2
 
 	private:
 		const Trailer* mTrailer;
-		bool mHasTrailer;
 
 	};
 }

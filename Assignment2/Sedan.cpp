@@ -5,7 +5,6 @@ namespace assignment2
 	Sedan::Sedan()
 		: Vehicle(4)
 		, mTrailer(NULL)
-		, mHasTrailer(false)
 	{
 	}
 
@@ -16,26 +15,24 @@ namespace assignment2
 
 	bool Sedan::AddTrailer(const Trailer* trailer)
 	{
-		if (mHasTrailer == true && trailer != NULL)
+		if (mTrailer != NULL || trailer == NULL)
 		{
 			return false;
 		}
 
 		mTrailer = trailer;
-		mHasTrailer = true;
 
 		return true;
 	}
 
 	bool Sedan::RemoveTrailer()
 	{
-		if (mHasTrailer == false)
+		if (mTrailer == NULL)
 		{
 			return false;
 		}
 
 		delete mTrailer;
-		mHasTrailer = false;
 
 		return true;
 	}
@@ -47,7 +44,7 @@ namespace assignment2
 	{
 		int weight = getAllPersonWeight();
 
-		if (mHasTrailer == true)
+		if (mTrailer != NULL)
 		{
 			weight += mTrailer->GetWeight();
 		}
@@ -86,7 +83,7 @@ namespace assignment2
 
 		if (mTravelIndex % 5 == 0)
 		{
-			mRestTime = mHasTrailer ? 1 : 2;
+			mRestTime = mTrailer == NULL ? 1 : 2;
 		}
 	}
 }
