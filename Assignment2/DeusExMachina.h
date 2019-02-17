@@ -17,6 +17,7 @@ namespace assignment2
 
 	private:
 		DeusExMachina();
+		~DeusExMachina();
 		unsigned int mVehicleCount;
 		Vehicle* mVehicle[10];
 

@@ -1,95 +1,91 @@
-#include "Sedan.h"
+#include "DeusExMachina.h"
 
 namespace assignment2
 {
-	Sedan::Sedan()
-		: Vehicle(4)
-		, mTrailer(NULL)
-		, mHasTrailer(false)
+	DeusExMachina* DeusExMachina::GetInstance()
 	{
+		static DeusExMachina* instance = NULL;
+
+		if (instance == NULL)
+		{
+			instance = new DeusExMachina();
+		}
+
+		return instance;
 	}
 
-	Sedan::~Sedan()
+	void DeusExMachina::Travel() const
 	{
-		if (mTrailer != NULL)
+		for (size_t i = 0; i < mVehicleCount; i++)
 		{
-			delete mTrailer;
+			mVehicle[i]->Travel();
 		}
 	}
 
-	bool Sedan::AddTrailer(const Trailer* trailer)
+	bool DeusExMachina::AddVehicle(Vehicle* vehicle)
 	{
-		if (mHasTrailer == true)
+		if (mVehicleCount == MaxCount || vehicle == NULL)
 		{
 			return false;
 		}
 
-		mTrailer = trailer;
-		mHasTrailer = true;
+		mVehicle[mVehicleCount] = vehicle;
+		mVehicleCount++;
 
 		return true;
 	}
 
-	bool Sedan::RemoveTrailer()
+	bool DeusExMachina::RemoveVehicle(unsigned int i)
 	{
-		if (mHasTrailer == false)
+		if (i >= mVehicleCount)
 		{
 			return false;
 		}
 
-		delete mTrailer;
-		mHasTrailer = false;
+		delete mVehicle[i];
+
+		for (size_t j = i; j < mVehicleCount - 1; j++)
+		{
+			mVehicle[j] = mVehicle[j + 1];
+		}
+
+		mVehicleCount--;
 
 		return true;
 	}
-	unsigned int Sedan::GetMaxSpeed()
+
+	const Vehicle* DeusExMachina::GetFurthestTravelled() const
 	{
-		return GetDriveSpeed();
+		if (mVehicleCount == 0)
+		{
+			return NULL;
+		}
+
+		Vehicle* vehicle = mVehicle[0];
+		unsigned int maxSpeed = vehicle->GetTravelLength();
+
+		for (size_t i = 1; i < mVehicleCount; i++)
+		{
+			if (maxSpeed < mVehicle[i]->GetTravelLength())
+			{
+				vehicle = mVehicle[i];
+				maxSpeed = vehicle->GetTravelLength();
+			}
+		}
+
+		return vehicle;
 	}
-	unsigned int Sedan::GetDriveSpeed()
+	DeusExMachina::DeusExMachina()
+		: mVehicleCount(0)
 	{
-		int weight = getAllPersonWeight();
-
-		if (mHasTrailer == true)
-		{
-			weight += mTrailer->GetWeight();
-		}
-
-		if (weight <= 80)
-		{
-			return 480;
-		}
-		else if (weight <= 160)
-		{
-			return 458;
-		}
-		else if (weight <= 260)
-		{
-			return 400;
-		}
-		else if (weight <= 350)
-		{
-			return 380;
-		}
-		else
-		{
-			return 300;
-		}
 	}
-	void Sedan::Travel()
+
+	DeusExMachina::~DeusExMachina()
 	{
-		if (mRestTime > 0)
+		for (size_t i = 0; i < mVehicleCount; i++)
 		{
-			mRestTime--;
-			return;
-		}
-
-		mTravelIndex++;
-		mTravelLength += GetMaxSpeed();
-
-		if (mTravelIndex % 5 == 0)
-		{
-			mRestTime = mHasTrailer ? 1 : 2;
+			delete mVehicle[i];
 		}
 	}
+
 }
