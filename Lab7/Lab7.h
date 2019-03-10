@@ -165,7 +165,7 @@ std::ostream& operator<<(std::ostream& os, const std::map<K, V>& m)
 
 	while (it != m.end())
 	{
-		std::cout << "{ " << it->first << ", " << it->second << " }" << std::endl;
+		os << "{ " << it->first << ", " << it->second << " }" << std::endl;
 
 		it++;
 	}
