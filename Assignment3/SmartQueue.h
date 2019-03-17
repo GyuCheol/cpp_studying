@@ -16,7 +16,7 @@ namespace assignment3
 		void Enqueue(T value);
 		T Dequeue();
 		T Peek() override;
-		double Variance() override;
+		double CalculateVariance() override;
 
 	private:
 		std::queue<T> mQueue;
@@ -45,6 +45,7 @@ namespace assignment3
 		this->mSum += value;
 		this->mCount++;
 		mQueue.push(value);
+		this->mVariance = CalculateVariance();
 	}
 
 	template<typename T>
@@ -57,10 +58,10 @@ namespace assignment3
 		this->mCount--;
 
 		std::queue<T> clone = mQueue;
+		this->mVariance = CalculateVariance();
 
 		this->mMin = std::numeric_limits<T>().max();
-		this->mMax = std::numeric_limits<T>().min();
-
+		this->mMax = std::numeric_limits<T>().lowest();
 		while (clone.empty() == false)
 		{
 			T front = clone.front();
@@ -88,7 +89,7 @@ namespace assignment3
 	}
 
 	template<typename T>
-	double SmartQueue<T>::Variance()
+	double SmartQueue<T>::CalculateVariance()
 	{
 		double varianceSum = 0;
 		double avg = (double)this->mSum / this->mCount;

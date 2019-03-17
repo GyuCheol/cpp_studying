@@ -20,7 +20,7 @@ namespace assignment3
 		unsigned int StackCount();
 
 		T Peek() override;
-		double Variance() override;
+		double CalculateVariance() override;
 
 	private:
 		std::queue<std::stack<T>*> mQueueStack;
@@ -104,7 +104,7 @@ namespace assignment3
 	}
 
 	template<typename T>
-	double QueueStack<T>::Variance()
+	double QueueStack<T>::CalculateVariance()
 	{
 		return 0.0;
 	}
@@ -124,7 +124,7 @@ namespace assignment3
 		}
 
 		this->mMin = std::numeric_limits<T>().max();
-		this->mMax = std::numeric_limits<T>().min();
+		this->mMax = std::numeric_limits<T>().lowest();
 
 		if (mQueueStack.empty() == false)
 		{

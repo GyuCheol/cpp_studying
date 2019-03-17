@@ -29,7 +29,7 @@ void test1()
 	assert(ss.Min() == -12.4f);
 	assert(ss.Sum() == 15.820f);
 	assert(ss.Average() == 1.582);
-	assert(ss.Variance() == 39.983);
+	assert(ss.CalculateVariance() == 39.983);
 	assert(ss.StandardDeviation() == 6.323);
 	assert(ss.Peek() == 9.2f);
 
@@ -80,7 +80,7 @@ void test2()
 	assert(ss.Min() == -12.4f);
 	assert(ss.Sum() == 15.820f);
 	assert(ss.Average() == 1.582);
-	assert(ss.Variance() == 39.983);
+	assert(ss.CalculateVariance() == 39.983);
 	assert(ss.StandardDeviation() == 6.323);
 	assert(ss.Peek() == 3.4f);
 
@@ -154,7 +154,7 @@ void test3()
 	}
 
 	assert(qs.Min() == std::numeric_limits<float>().max());
-	assert(qs.Max() == std::numeric_limits<float>().min());
+	assert(qs.Max() == std::numeric_limits<float>().lowest());
 
 	qs.Enqueue(5.5f);
 	assert(qs.Max() == 5.5f);
@@ -171,6 +171,9 @@ void test3()
 
 int main()
 {
+	std::cout << std::numeric_limits<float>().lowest() << std::endl;
+	std::cout << std::numeric_limits<float>().max() << std::endl;
+
 	test1();
 	test2();
 	test3();

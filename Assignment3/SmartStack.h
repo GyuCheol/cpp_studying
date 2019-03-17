@@ -16,7 +16,7 @@ namespace assignment3
 		void Push(const T& value);
 		T Pop();
 		T Peek() override;
-		double Variance() override;
+		double CalculateVariance() override;
 
 	private:
 		std::stack<T> mStack;
@@ -44,6 +44,7 @@ namespace assignment3
 		this->mSum += value;
 		this->mCount++;
 		mStack.push(value);
+		this->mVariance = CalculateVariance();
 	}
 
 	template<typename T>
@@ -58,7 +59,7 @@ namespace assignment3
 		std::stack<T> clone = mStack;
 
 		this->mMin = std::numeric_limits<T>().max();
-		this->mMax = std::numeric_limits<T>().min();
+		this->mMax = std::numeric_limits<T>().lowest();
 
 		while (clone.empty() == false)
 		{
@@ -77,6 +78,8 @@ namespace assignment3
 			}
 		}
 
+		this->mVariance = CalculateVariance();
+
 		return top;
 	}
 
@@ -87,7 +90,7 @@ namespace assignment3
 	}
 
 	template<typename T>
-	double SmartStack<T>::Variance()
+	double SmartStack<T>::CalculateVariance()
 	{
 		double varianceSum = 0;
 		double avg = (double)this->mSum / this->mCount;
