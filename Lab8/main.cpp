@@ -343,7 +343,7 @@ void test4()
 	assert(boolVector1.GetCapacity() == BOOL_VECTOR1_SIZE);
 	assert(boolVector1.GetSize() == 0);
 	std::cout << "Test FixedBoolVector constructor: PASS" << std::endl;
-	// assert(sizeof(boolVector1) == (sizeof(int32_t) + sizeof(size_t)));
+	assert(sizeof(boolVector1) == (sizeof(int32_t) + sizeof(size_t)));
 	std::cout << "Test FixedBoolVector constructor - fit memroy: PASS" << std::endl;
 
 	assert(boolVector1.Add(boolArray1[0]) == true);
@@ -391,7 +391,7 @@ void test4()
 	std::cout << "Test FixedBoolVector operator[]() - read: PASS" << std::endl;
 
 	FixedVector<bool, 65> boolVector2;
-	// assert(sizeof(boolVector2) == ((sizeof(int32_t) * 3) + sizeof(size_t)));
+	assert(sizeof(boolVector2) == ((sizeof(int32_t) * 3) + sizeof(size_t)));
 	std::cout << "Test FixedBoolVector constructor - fit memroy: PASS" << std::endl;
 	for (int i = 0; i < 65; i++)
 	{

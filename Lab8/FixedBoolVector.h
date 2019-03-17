@@ -7,9 +7,7 @@ namespace lab8 {
 	template <size_t N>
 	class FixedVector<bool, N> {
 	public:
-		FixedVector();
-		~FixedVector();
-
+		
 		bool Add(bool value);
 		bool Remove(bool find);
 		const bool Get(unsigned int index);
@@ -21,9 +19,9 @@ namespace lab8 {
 
 	private:
 		enum { BIT_SIZE = sizeof(uint32_t) * 8};
+		inline size_t getArraySize();
 
-		uint32_t* mValues;
-		size_t mArraySize;
+		uint32_t mValues[(N + BIT_SIZE) / BIT_SIZE];
 		size_t mSize = 0;
 	};
 
@@ -59,6 +57,12 @@ namespace lab8 {
 		return Get(index);
 	}
 
+	template<size_t N>
+	inline size_t FixedVector<bool, N>::getArraySize()
+	{
+		return sizeof(mValues) / sizeof(uint32_t);
+	}
+
 	template <size_t N>
 	bool FixedVector<bool, N>::Remove(bool value)
 	{
@@ -69,22 +73,23 @@ namespace lab8 {
 			return false;
 		}
 
-		int pos = index / BIT_SIZE;
-		int id = index % BIT_SIZE;
+		size_t pos = index / BIT_SIZE;
+		size_t id = index % BIT_SIZE;
+		size_t size = getArraySize();
 
 		uint32_t left = mValues[pos] % (1 << id);
 		uint32_t right = mValues[pos] >> (id + 1);
 
 		mValues[pos] = left + (right << id);
-		if (pos < (mArraySize - 1))
+		if (pos < (size - 1))
 		{
 			mValues[pos] |= (mValues[pos + 1] % 2) << (BIT_SIZE - 1);
 		}
 
-		for (size_t i = pos + 1; i < mArraySize; i++)
+		for (size_t i = pos + 1; i < size; i++)
 		{
 			mValues[i] = mValues[i] >> 1;
-			if (i < (mArraySize - 1))
+			if (i < (size - 1))
 			{
 				mValues[i] |= (mValues[i + 1] % 2) << (BIT_SIZE - 1);
 			}
@@ -129,25 +134,5 @@ namespace lab8 {
 	{
 		return N;
 	}
-
-	template <size_t N>
-	FixedVector<bool, N>::FixedVector()
-	{
-		mArraySize = N / BIT_SIZE;
-
-		if (N % BIT_SIZE != 0)
-		{
-			mArraySize++;
-		}
-
-		mValues = new uint32_t[mArraySize] { 0, };
-	}
-
-	template <size_t N>
-	FixedVector<bool, N>::~FixedVector()
-	{
-		delete[] mValues;
-	}
-
 }
 
