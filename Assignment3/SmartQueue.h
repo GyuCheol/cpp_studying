@@ -129,14 +129,14 @@ namespace assignment3
 	template<typename T>
 	double SmartQueue<T>::Average()
 	{
-		return round((double)Sum() / Count());
+		return round((double)mSum / Count());
 	}
 
 	template<typename T>
 	double SmartQueue<T>::Variance()
 	{
 		double avgSquare = mSquareSum / Count();
-		double avg = (double)Sum() / Count();
+		double avg = (double)mSum / Count();
 
 		return round(avgSquare - (avg * avg));
 	}
@@ -145,7 +145,7 @@ namespace assignment3
 	double SmartQueue<T>::StandardDeviation()
 	{
 		double avgSquare = mSquareSum / Count();
-		double avg = (double)Sum() / Count();
+		double avg = (double)mSum / Count();
 		double var = avgSquare - (avg * avg);
 
 		return round(sqrt(var));
