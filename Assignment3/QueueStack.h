@@ -2,148 +2,103 @@
 
 #include <queue>
 #include <stack>
+#include <limits>
+#include <cmath>
 
-#include "SmartBase.h"
+#include "Utils.h"
 
 namespace assignment3
 {
 
 	template<typename T>
-	class QueueStack : public SmartBase<T>
+	class QueueStack
 	{
 	public:
-		QueueStack(size_t maxSize);
+		QueueStack(unsigned int maxStackSize);
 		~QueueStack();
 
-		void Enqueue(T value);
+		void Enqueue(T number);
+		T Peek();
 		T Dequeue();
+		T Max();
+		T Min();
+		double Average();
+		T Sum();
+		unsigned int Count();
 		unsigned int StackCount();
-
-		T Peek() override;
 
 	private:
 		std::queue<std::stack<T>*> mQueueStack;
-		std::stack<T> mMaxStack;
-		std::stack<T> mMinStack;
-		size_t mMaxSize;
+		unsigned int mMaxStackSize;
+		T mSum;
+		unsigned int mCount;
 	};
 
-	template<typename T> QueueStack<T>::QueueStack(size_t maxSize)
-		: SmartBase<T>()
-		, mMaxSize(maxSize)
+	template<typename T> QueueStack<T>::QueueStack(unsigned int maxStackSize)
+		: mMaxStackSize(maxStackSize)
+		, mSum(0)
+		, mCount(0)
 	{
 	}
 
-	template<typename T> QueueStack<T>::~QueueStack()
+	template<typename T>
+	QueueStack<T>::~QueueStack()
 	{
 		while (mQueueStack.empty() == false)
 		{
-			std::stack<T>* front = mQueueStack.front();
+			std::stack<T>* item = mQueueStack.front();
 
 			mQueueStack.pop();
-			delete front;
+
+			delete item;
 		}
 	}
 
 	template<typename T>
-	void QueueStack<T>::Enqueue(T value)
+	inline void QueueStack<T>::Enqueue(T number)
 	{
-		if (this->mMax <= value)
-		{
-			this->mMax = value;
-			mMaxStack.push(value);
-		}
-
-		if (this->mMin >= value)
-		{
-			this->mMin = value;
-			mMinStack.push(value);
-		}
-
-		this->mSum += value;
-		this->mSumSquare += (value * value);
-		this->mCount++;
-
-		std::stack<T>* insertStack = nullptr;
-
-		if (mQueueStack.empty() == true)
-		{
-			insertStack = new std::stack<T>();
-
-			mQueueStack.push(insertStack);
-		}
-		else
-		{
-			std::queue<std::stack<T>*> clone = mQueueStack;
-
-			insertStack = clone.front();
-
-			while (insertStack->size() == mMaxSize)
-			{
-				clone.pop();
-
-				if (clone.empty() == true)
-				{
-					insertStack = new std::stack<T>();
-
-					mQueueStack.push(insertStack);
-					break;
-				}
-
-				insertStack = clone.front();
-			}
-		}
-
-		insertStack->push(value);
 	}
 
 	template<typename T>
-	T QueueStack<T>::Peek()
+	inline T QueueStack<T>::Peek()
 	{
-		std::stack<T>* stack = mQueueStack.front();
-
-		return stack->top();
+		return T();
 	}
 
 	template<typename T>
-	T QueueStack<T>::Dequeue()
+	inline T QueueStack<T>::Dequeue()
 	{
-		std::stack<T>* stack = mQueueStack.front();
+		return T();
+	}
 
-		T value = stack->top();
-		stack->pop();
+	template<typename T>
+	inline T QueueStack<T>::Max()
+	{
+		return T();
+	}
 
-		this->mSumSquare -= (value * value);
-		this->mSum -= value;
-		this->mCount--;
+	template<typename T>
+	inline T QueueStack<T>::Min()
+	{
+		return T();
+	}
 
-		if (stack->size() == 0)
-		{
-			delete stack;
-			mQueueStack.pop();
-		}
+	template<typename T>
+	double QueueStack<T>::Average()
+	{
+		return round((double)Sum() / Count());
+	}
 
-		if (this->mCount == 0)
-		{
-			this->mMin = std::numeric_limits<T>().max();
-			this->mMax = std::numeric_limits<T>().lowest();
-		}
-		else
-		{
-			if (this->mMax == value)
-			{
-				mMaxStack.pop();
-				this->mMax = mMaxStack.top();
-			}
+	template<typename T>
+	T QueueStack<T>::Sum()
+	{
+		return round(mSum);
+	}
 
-			if (this->mMin == value)
-			{
-				mMinStack.pop();
-				this->mMin = mMaxStack.top();
-			}
-		}
-
-		return value;
+	template<typename T>
+	unsigned int QueueStack<T>::Count()
+	{
+		return mCount;
 	}
 
 	template<typename T>

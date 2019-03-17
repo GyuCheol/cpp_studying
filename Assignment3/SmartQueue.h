@@ -1,93 +1,154 @@
 #pragma once
 
 #include <queue>
-#include <stack>
+#include <limits>
+#include <cmath>
 
-#include "SmartBase.h"
+#include "Utils.h"
 
 namespace assignment3
 {
 
 	template<typename T>
-	class SmartQueue : public SmartBase<T>
+	class SmartQueue
 	{
 	public:
 		SmartQueue();
 
-		void Enqueue(T value);
+		void Enqueue(T number);
+		T Max();
+		T Min();
+		T Sum();
+		T Peek();
 		T Dequeue();
-		T Peek() override;
+		unsigned int Count();
+		double Variance();
+		double StandardDeviation();
+		double Average();
 
 	private:
 		std::queue<T> mQueue;
-		std::stack<T> mMaxStack;
-		std::stack<T> mMinStack;
-		
+		T mSum;
+		double mSquareSum;
 	};
 
 	template<typename T> SmartQueue<T>::SmartQueue()
-		: SmartBase<T>()
+		: mSum(0)
+		, mSquareSum(0)
 	{
 	}
 
 	template<typename T>
-	void SmartQueue<T>::Enqueue(T value)
+	void SmartQueue<T>::Enqueue(T number)
 	{
-		if (this->mMax <= value)
-		{
-			this->mMax = value;
-			mMaxStack.push(value);
-		}
-
-		if (this->mMin >= value)
-		{
-			this->mMin = value;
-			mMinStack.push(value);
-		}
-
-		this->mSum += value;
-		this->mSumSquare += (value * value);
-		this->mCount++;
-		mQueue.push(value);
+		mSum += number;
+		mSquareSum += (number * number);
+		mQueue.push(number);
 	}
 
 	template<typename T>
-	T SmartQueue<T>::Dequeue()
+	T SmartQueue<T>::Max()
 	{
-		T front = mQueue.front();
-		mQueue.pop();
+		T max = std::numeric_limits<T>().lowest();
 
-		this->mSum -= front;
-		this->mSumSquare -= (front * front);
-		this->mCount--;
-
-		if (this->mCount == 0)
+		if (Count() == 0)
 		{
-			this->mMin = std::numeric_limits<T>().max();
-			this->mMax = std::numeric_limits<T>().lowest();
+			return max;
 		}
-		else
-		{
-			if (this->mMax == front)
-			{
-				mMaxStack.pop();
-				this->mMax = mMaxStack.top();
-			}
 
-			if (this->mMin == front)
+		std::queue<T> clone = mQueue;
+		
+		while (clone.empty() == false)
+		{
+			T value = clone.front();
+
+			clone.pop();
+			if (max < value)
 			{
-				mMinStack.pop();
-				this->mMin = mMaxStack.top();
+				max = value;
 			}
 		}
 
-		return front;
+		return max;
+	}
+
+	template<typename T>
+	T SmartQueue<T>::Min()
+	{
+		T min = std::numeric_limits<T>().max();
+
+		if (Count() == 0)
+		{
+			return min;
+		}
+
+		std::queue<T> clone = mQueue;
+
+		while (clone.empty() == false)
+		{
+			T value = clone.front();
+
+			clone.pop();
+			if (min > value)
+			{
+				min = value;
+			}
+		}
+
+		return min;
+	}
+
+	template<typename T>
+	T SmartQueue<T>::Sum()
+	{
+		return round(mSum);
 	}
 
 	template<typename T>
 	T SmartQueue<T>::Peek()
 	{
 		return mQueue.front();
+	}
+
+	template<typename T>
+	T SmartQueue<T>::Dequeue()
+	{
+		T value = mQueue.front();
+
+		mQueue.pop();
+
+		return value;
+	}
+
+	template<typename T>
+	unsigned int SmartQueue<T>::Count()
+	{
+		return mQueue.size();
+	}
+
+	template<typename T>
+	double SmartQueue<T>::Average()
+	{
+		return round((double)Sum() / Count());
+	}
+
+	template<typename T>
+	double SmartQueue<T>::Variance()
+	{
+		double avgSquare = mSquareSum / Count();
+		double avg = (double)Sum() / Count();
+
+		return round(avgSquare - (avg * avg));
+	}
+
+	template<typename T>
+	double SmartQueue<T>::StandardDeviation()
+	{
+		double avgSquare = mSquareSum / Count();
+		double avg = (double)Sum() / Count();
+		double var = avgSquare - (avg * avg);
+
+		return round(sqrt(var));
 	}
 
 }

@@ -12,12 +12,21 @@ void test1()
 {
 	SmartStack<float> ss;
 
+	assert(ss.Count() == 0);
 	ss.Push(3.4f);
+
+	assert(ss.Count() == 1);
 	ss.Push(1.2f);
+
+	assert(ss.Count() == 2);
 	ss.Push(4.6f);
+	assert(ss.Count() == 3);
 	ss.Push(3.32f);
+	assert(ss.Count() == 4);
 	ss.Push(10.2f);
+	assert(ss.Count() == 5);
 	ss.Push(1.1f);
+	assert(ss.Count() == 6);
 	ss.Push(-5.9f);
 	ss.Push(1.1f);
 	ss.Push(-12.4f);
@@ -45,6 +54,7 @@ void test1()
 	{
 		ss.Pop();
 	}
+	assert(ss.Count() == 0);
 
 	ss.Push(1.0f);
 	ss.Push(5.0f);
@@ -64,15 +74,19 @@ void test2()
 	SmartQueue<float> ss;
 
 	ss.Enqueue(3.4f);
+	float f = ss.Max();
 	ss.Enqueue(1.2f);
 	ss.Enqueue(4.6f);
 	ss.Enqueue(3.32f);
 	ss.Enqueue(10.2f);
+	f = ss.Max();
 	ss.Enqueue(1.1f);
 	ss.Enqueue(-5.9f);
 	ss.Enqueue(1.1f);
+	f = ss.Max();
 	ss.Enqueue(-12.4f);
 	ss.Enqueue(9.2f);
+	f = ss.Max();
 
 	assert(ss.Count() == 10U);
 	assert(ss.Peek() == 3.4f);
@@ -267,6 +281,80 @@ void test6()
 
 }
 
+void test7()
+{
+	SmartStack<int> ss;
+
+	ss.Push(1);
+	assert(ss.Max() == 1);
+	ss.Push(2);
+	assert(ss.Max() == 2);
+	ss.Push(3);
+	assert(ss.Max() == 3);
+	ss.Push(4);
+	assert(ss.Max() == 4);
+	ss.Push(5);
+	assert(ss.Max() == 5);
+
+	while (ss.Count() > 0)
+	{
+		assert(ss.Max() == ss.Peek());
+		assert(ss.Min() == 1);
+		ss.Pop();
+	}
+
+}
+
+void test8()
+{
+	SmartStack<float> ss;
+	assert(ss.Max() == std::numeric_limits<float>::lowest());
+	assert(ss.Min() == std::numeric_limits<float>::max());
+	ss.Push(3.4f);
+	ss.Push(1.2f);
+	ss.Push(4.6f);
+	ss.Push(3.32f);
+	ss.Push(10.2f);
+	ss.Push(1.1f);
+	ss.Push(-5.9f);
+	ss.Push(1.1f);
+	ss.Push(-12.4f);
+	ss.Push(9.2f);
+
+	float f = 3.4f + 1.2f + 4.6f + 3.32f + 10.2f + 1.1f + -5.9f + 1.1f + -12.4f + 9.2f;
+	float sum = ss.Sum();
+
+	assert(ss.Count() == 10U);
+	assert(ss.Peek() == 9.2f);
+	assert(ss.Max() == 10.2f);
+	assert(ss.Min() == -12.4f);
+	// assert(ss.Sum() == 3.4f + 1.2f + 4.6f + 3.32f + 10.2f + 1.1f + -5.9f + 1.1f + -12.4f + 9.2f);
+	assert(ss.Average() == 1.582);
+	assert(ss.Variance() == 39.983);
+	assert(ss.StandardDeviation() == 6.323);
+	assert(ss.Peek() == 9.2f);
+
+	float popped1 = ss.Pop();
+	float popped2 = ss.Pop();
+
+	assert(popped1 == 9.2f);
+	assert(popped2 == -12.4f);
+}
+
+void test9()
+{
+	SmartStack<int> ss;
+	
+	ss.Push(1);
+	ss.Push(1);
+	ss.Pop();
+
+	assert(ss.Peek() == 1);
+
+	ss.Pop();
+	assert(ss.Count() == 0);
+}
+
 int main()
 {
 	std::cout << std::numeric_limits<float>().lowest() << std::endl;
@@ -278,6 +366,9 @@ int main()
 	test4();
 	test5();
 	test6();
+	test7();
+	test8();
+	test9();
 
 	return 0;
 }

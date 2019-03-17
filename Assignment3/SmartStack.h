@@ -1,92 +1,152 @@
 #pragma once
 
 #include <stack>
+#include <limits>
+#include <cmath>
 
-#include "SmartBase.h"
+#include "Utils.h"
 
 namespace assignment3
 {
 
 	template<typename T>
-	class SmartStack : public SmartBase<T>
+	class SmartStack
 	{
 	public:
 		SmartStack();
-
-		void Push(const T& value);
+		void Push(T number);
+		T Max();
+		T Min();
+		T Sum();
 		T Pop();
-		T Peek() override;
+		T Peek();
+		unsigned int Count();
+		double Variance();
+		double StandardDeviation();
+		double Average();
 
 	private:
 		std::stack<T> mStack;
 		std::stack<T> mMaxStack;
 		std::stack<T> mMinStack;
+
+		T mSum;
+		double mSquareSum;
 	};
 
-	template<typename T> SmartStack<T>::SmartStack() 
-		: SmartBase<T>()
+	template<typename T> SmartStack<T>::SmartStack()
+		: mSum(0)
+		, mSquareSum(0)
 	{
+
+
 	}
 
 	template<typename T>
-	void SmartStack<T>::Push(const T& value)
+	void SmartStack<T>::Push(T number)
 	{
-		
-		if (this->mMax <= value)
+		mSum += number;
+		mSquareSum += (number * number);
+		mStack.push(number);
+
+		if (Max() <= number)
 		{
-			this->mMax = value;
-			mMaxStack.push(value);
+			mMaxStack.push(number);
 		}
 
-		if (this->mMin >= value)
+		if (Min() >= number)
 		{
-			this->mMin = value;
-			mMinStack.push(value);
+			mMinStack.push(number);
 		}
 
-		this->mSum += value;
-		this->mSumSquare += (value * value);
-		this->mCount++;
-		mStack.push(value);
+	}
+
+	template<typename T>
+	T SmartStack<T>::Max()
+	{
+		if (mMaxStack.empty() == true)
+		{
+			return std::numeric_limits<T>().lowest();
+		}
+
+		return mMaxStack.top();
+	}
+
+	template<typename T>
+	T SmartStack<T>::Min()
+	{
+		if (mMinStack.empty() == true)
+		{
+			return std::numeric_limits<T>().max();
+		}
+
+		return mMinStack.top();
+	}
+
+	template<typename T>
+	T SmartStack<T>::Sum()
+	{
+		return round(mSum);
 	}
 
 	template<typename T>
 	T SmartStack<T>::Pop()
 	{
-		T top = mStack.top();
+		T value = mStack.top();
+
+		mSum -= value;
+		mSquareSum -= (value * value);
+
+		if (value == Max())
+		{
+			mMaxStack.pop();
+		}
+
+		if (value == Min())
+		{
+			mMinStack.pop();
+		}
+
 		mStack.pop();
 
-		this->mSum -= top;
-		this->mSumSquare -= (top * top);
-		this->mCount--;
-
-		if (this->mCount == 0)
-		{
-			this->mMin = std::numeric_limits<T>().max();
-			this->mMax = std::numeric_limits<T>().lowest();
-		}
-		else
-		{
-			if (this->mMax == top)
-			{
-				mMaxStack.pop();
-				this->mMax = mMaxStack.top();
-			}
-
-			if (this->mMin == top)
-			{
-				mMinStack.pop();
-				this->mMin = mMaxStack.top();
-			}
-		}
-
-		return top;
+		return value;
 	}
 
 	template<typename T>
 	T SmartStack<T>::Peek()
 	{
 		return mStack.top();
+	}
+
+	template<typename T>
+	unsigned int SmartStack<T>::Count()
+	{
+		return mStack.size();
+	}
+
+	template<typename T>
+	double SmartStack<T>::Variance()
+	{
+		double avgSquare = mSquareSum / Count();
+		double avg = (double)Sum() / Count();
+
+		return round(avgSquare - (avg * avg));
+	}
+
+	template<typename T>
+	double SmartStack<T>::StandardDeviation()
+	{
+		double avgSquare = mSquareSum / Count();
+		double avg = (double)Sum() / Count();
+		double var = avgSquare - (avg * avg);
+
+		return round(sqrt(var));
+	}
+
+	template<typename T>
+	double SmartStack<T>::Average()
+	{
+		return round((double)Sum() / Count());
 	}
 
 }
