@@ -91,6 +91,10 @@ namespace assignment3
 	template<typename T>
 	double SmartStack<T>::CalculateVariance()
 	{
+		if (this->mCount == 0) {
+			return 0.0;
+		}
+
 		double varianceSum = 0;
 		double avg = (double)this->mSum / this->mCount;
 		std::stack<T> clone = mStack;
@@ -104,7 +108,7 @@ namespace assignment3
 			varianceSum += std::pow(top - avg, 2);
 		}
 
-		return round<double>(varianceSum / this->mCount, 3.0);
+		return varianceSum / this->mCount;
 	}
 
 }

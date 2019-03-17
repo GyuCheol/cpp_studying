@@ -29,7 +29,7 @@ void test1()
 	assert(ss.Min() == -12.4f);
 	assert(ss.Sum() == 15.820f);
 	assert(ss.Average() == 1.582);
-	assert(ss.CalculateVariance() == 39.983);
+	assert(ss.Variance() == 39.983);
 	assert(ss.StandardDeviation() == 6.323);
 	assert(ss.Peek() == 9.2f);
 
@@ -80,7 +80,7 @@ void test2()
 	assert(ss.Min() == -12.4f);
 	assert(ss.Sum() == 15.820f);
 	assert(ss.Average() == 1.582);
-	assert(ss.CalculateVariance() == 39.983);
+	assert(ss.Variance() == 39.983);
 	assert(ss.StandardDeviation() == 6.323);
 	assert(ss.Peek() == 3.4f);
 
@@ -169,6 +169,107 @@ void test3()
 
 }
 
+void test4()
+{
+	SmartStack<int> ss;
+
+	ss.Push(-3);
+	ss.Push(-3);
+	ss.Push(3);
+	ss.Push(3);
+
+	assert(ss.Max() == 3);
+	assert(ss.Min() == -3);
+	assert(ss.Sum() == 0);
+
+	assert(ss.Average() == 0);
+	assert(ss.Variance() == 9);
+	assert(ss.StandardDeviation() == 3);
+
+	ss.Pop();
+	ss.Pop();
+	ss.Pop();
+	ss.Pop();
+
+	assert(ss.Min() == std::numeric_limits<int>().max());
+	assert(ss.Max() == std::numeric_limits<int>().lowest());
+
+}
+
+void test5()
+{
+	SmartQueue<int> ss;
+
+	ss.Enqueue(-3);
+	ss.Enqueue(-3);
+	ss.Enqueue(3);
+	ss.Enqueue(3);
+
+	assert(ss.Max() == 3);
+	assert(ss.Min() == -3);
+	assert(ss.Sum() == 0);
+
+	assert(ss.Average() == 0);
+	assert(ss.Variance() == 9);
+	assert(ss.StandardDeviation() == 3);
+
+	ss.Dequeue();
+	ss.Dequeue();
+	ss.Dequeue();
+	ss.Dequeue();
+
+	assert(ss.Min() == std::numeric_limits<int>().max());
+	assert(ss.Max() == std::numeric_limits<int>().lowest());
+
+}
+
+
+void test6()
+{
+	QueueStack<int> qs(1);
+
+	qs.Enqueue(1);
+	qs.Enqueue(2);
+	qs.Enqueue(3);
+	qs.Enqueue(4);
+	qs.Enqueue(5);
+
+	assert(qs.Peek() == 1);
+	assert(qs.Count() == 5);
+	assert(qs.StackCount() == 5);
+	assert(qs.Max() == 5);
+	assert(qs.Min() == 1);
+	assert(qs.Sum() == 15);
+	assert(qs.Average() == 3);
+
+
+	while (qs.Count() > 0)
+	{
+		qs.Dequeue();
+	}
+
+	assert(qs.Min() == std::numeric_limits<int>().max());
+	assert(qs.Max() == std::numeric_limits<int>().lowest());
+
+	assert(qs.Sum() == 0);
+	assert(qs.Count() == 0);
+
+	qs.Enqueue(1);
+	qs.Enqueue(2);
+	qs.Enqueue(3);
+	qs.Enqueue(4);
+	qs.Enqueue(5);
+
+	assert(qs.Peek() == 1);
+	assert(qs.Count() == 5);
+	assert(qs.StackCount() == 5);
+	assert(qs.Max() == 5);
+	assert(qs.Min() == 1);
+	assert(qs.Sum() == 15);
+	assert(qs.Average() == 3);
+
+}
+
 int main()
 {
 	std::cout << std::numeric_limits<float>().lowest() << std::endl;
@@ -177,6 +278,9 @@ int main()
 	test1();
 	test2();
 	test3();
+	test4();
+	test5();
+	test6();
 
 	return 0;
 }

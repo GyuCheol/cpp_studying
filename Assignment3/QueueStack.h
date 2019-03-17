@@ -151,6 +151,7 @@ namespace assignment3
 			}
 		}
 
+		this->mSum -= value;
 		this->mCount--;
 
 		return value;

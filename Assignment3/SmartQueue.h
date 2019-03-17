@@ -91,6 +91,10 @@ namespace assignment3
 	template<typename T>
 	double SmartQueue<T>::CalculateVariance()
 	{
+		if (this->mCount == 0) {
+			return 0.0;
+		}
+
 		double varianceSum = 0;
 		double avg = (double)this->mSum / this->mCount;
 		std::queue<T> clone = mQueue;
@@ -104,9 +108,7 @@ namespace assignment3
 			varianceSum += std::pow(front - avg, 2);
 		}
 
-		return round<double>(varianceSum / this->mCount, 3.0);
+		return varianceSum / this->mCount;
 	}
-
-
 
 }
