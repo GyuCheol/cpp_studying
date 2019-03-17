@@ -103,7 +103,7 @@ namespace assignment3
 	}
 
 	template<typename T>
-	inline T QueueStack<T>::Min()
+	T QueueStack<T>::Min()
 	{
 		T min = std::numeric_limits<T>().max();
 
@@ -138,7 +138,7 @@ namespace assignment3
 	template<typename T>
 	T QueueStack<T>::Sum()
 	{
-		return round(mSum);
+		return mSum;
 	}
 
 	template<typename T>

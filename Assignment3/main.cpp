@@ -151,10 +151,7 @@ void test3()
 	assert(qs.Peek() == 4.6f);
 
 	assert(qs.Dequeue() == 4.6f);
-	qs.Enqueue(9.9f);
-	assert(qs.Peek() == 9.9f);
 
-	assert(qs.Dequeue() == 9.9f);
 	assert(qs.Dequeue() == 1.2f);
 	assert(qs.Dequeue() == 3.4f);
 
@@ -328,7 +325,7 @@ void test8()
 	assert(ss.Peek() == 9.2f);
 	assert(ss.Max() == 10.2f);
 	assert(ss.Min() == -12.4f);
-	// assert(ss.Sum() == 3.4f + 1.2f + 4.6f + 3.32f + 10.2f + 1.1f + -5.9f + 1.1f + -12.4f + 9.2f);
+	assert(ss.Sum() == 3.4f + 1.2f + 4.6f + 3.32f + 10.2f + 1.1f + -5.9f + 1.1f + -12.4f + 9.2f);
 	assert(ss.Average() == 1.582);
 	assert(ss.Variance() == 39.983);
 	assert(ss.StandardDeviation() == 6.323);
