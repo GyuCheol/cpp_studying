@@ -23,7 +23,8 @@ namespace lab8 {
 	template<typename T, size_t N>
 	bool FixedVector<T, N>::Add(T value)
 	{
-		if (mSIze == N) {
+		if (mSIze == N)
+		{
 			return false;
 		}
 

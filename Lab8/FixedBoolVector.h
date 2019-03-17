@@ -31,7 +31,8 @@ namespace lab8 {
 	bool FixedVector<bool, N>::Add(bool value)
 	{
 		
-		if (mSize == N) {
+		if (mSize == N) 
+		{
 			return false;
 		}
 		
@@ -108,7 +109,8 @@ namespace lab8 {
 	{
 		for (size_t i = 0; i < mSize; i++)
 		{
-			if (find == Get(i)) {
+			if (find == Get(i))
+			{
 				return i;
 			}
 		}
@@ -133,11 +135,12 @@ namespace lab8 {
 	{
 		mArraySize = N / BIT_SIZE;
 
-		if (N % BIT_SIZE != 0) {
+		if (N % BIT_SIZE != 0)
+		{
 			mArraySize++;
 		}
 
-		mValues = new uint32_t[mArraySize]{ 0, };
+		mValues = new uint32_t[mArraySize] { 0, };
 	}
 
 	template <size_t N>
