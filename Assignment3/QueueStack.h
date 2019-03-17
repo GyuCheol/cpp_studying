@@ -15,7 +15,6 @@ namespace assignment3
 	{
 	public:
 		QueueStack(unsigned int maxStackSize);
-		~QueueStack();
 
 		void Enqueue(T number);
 		T Peek();
@@ -28,7 +27,7 @@ namespace assignment3
 		unsigned int StackCount();
 
 	private:
-		std::queue<SmartStack<T>*> mQueueStack;
+		std::queue<SmartStack<T>> mQueueStack;
 		unsigned int mMaxStackSize;
 		T mSum;
 		unsigned int mCount;
@@ -41,72 +40,36 @@ namespace assignment3
 	{
 	}
 
-	template<typename T> QueueStack<T>::~QueueStack()
-	{
-		while (mQueueStack.empty() == false)
-		{
-			SmartStack<T>* item = mQueueStack.front();
-
-			mQueueStack.pop();
-
-			delete item;
-		}
-	}
-
 	template<typename T>
 	void QueueStack<T>::Enqueue(T number)
 	{
-		SmartStack<T>* stack = nullptr;
-
-		if (mCount == 0)
+		if (mCount == 0 || mQueueStack.back().Count() == mMaxStackSize)
 		{
-			stack = new SmartStack<T>();
-
-			mQueueStack.push(stack);
+			mQueueStack.push(SmartStack<T>());
 		}
-		else
-		{
-			stack = mQueueStack.front();
-
-			if (stack->Count() == mMaxStackSize)
-			{
-				stack = mQueueStack.back();
-
-				if (stack->Count() == mMaxStackSize)
-				{
-					stack = new SmartStack<T>();
-
-					mQueueStack.push(stack);
-				}
-			}
-		}
-
-		mCount++;
+		
 		mSum += number;
-		stack->Push(number);
+		mCount++;
+		mQueueStack.back().Push(number);
 	}
 
 	template<typename T>
 	T QueueStack<T>::Peek()
 	{
-		SmartStack<T>* stack = mQueueStack.front();
-
-		return stack->Peek();
+		return mQueueStack.front().Peek();
 	}
 
 	template<typename T>
 	inline T QueueStack<T>::Dequeue()
 	{
-		SmartStack<T>* stack = mQueueStack.front();
-		T value = stack->Pop();
+		T value = mQueueStack.front().Pop();
 
 		mSum -= value;
 		mCount--;
 
-		if (stack->Count() == 0)
+		if (mQueueStack.front().Count() == 0)
 		{
 			mQueueStack.pop();
-			delete stack;
 		}
 
 		return value;
@@ -122,15 +85,15 @@ namespace assignment3
 			return max;
 		}
 
-		std::queue<SmartStack<T>*> clone = mQueueStack;
+		std::queue<SmartStack<T>> clone = mQueueStack;
 
 		while (clone.empty() == false)
 		{
-			SmartStack<T>* stack = clone.front();
+			SmartStack<T> stack = clone.front();
 
-			if (max < stack->Max())
+			if (max < stack.Max())
 			{
-				max = stack->Max();
+				max = stack.Max();
 			}
 
 			clone.pop();
@@ -149,15 +112,15 @@ namespace assignment3
 			return min;
 		}
 
-		std::queue<SmartStack<T>*> clone = mQueueStack;
+		std::queue<SmartStack<T>> clone = mQueueStack;
 
 		while (clone.empty() == false)
 		{
-			SmartStack<T>* stack = clone.front();
+			SmartStack<T> stack = clone.front();
 
-			if (min > stack->Min())
+			if (min > stack.Min())
 			{
-				min = stack->Min();
+				min = stack.Min();
 			}
 
 			clone.pop();

@@ -101,7 +101,7 @@ namespace assignment3
 	template<typename T>
 	T SmartQueue<T>::Sum()
 	{
-		return round(mSum);
+		return mSum;
 	}
 
 	template<typename T>

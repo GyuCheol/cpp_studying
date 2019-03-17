@@ -86,7 +86,7 @@ namespace assignment3
 	template<typename T>
 	T SmartStack<T>::Sum()
 	{
-		return round(mSum);
+		return mSum;
 	}
 
 	template<typename T>
