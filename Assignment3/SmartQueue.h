@@ -115,6 +115,8 @@ namespace assignment3
 	{
 		T value = mQueue.front();
 
+		mSum -= value;
+		mSquareSum -= (value * value);
 		mQueue.pop();
 
 		return value;
