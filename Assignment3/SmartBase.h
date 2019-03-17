@@ -25,13 +25,12 @@ namespace assignment3
 		double StandardDeviation();
 		double Variance();
 		virtual T Peek() = 0;
-		virtual double CalculateVariance() = 0;
 
 	protected:
 		T mMin;
 		T mMax;
 		T mSum;
-		double mVariance;
+		T mSumSquare;
 		unsigned int mCount;
 	};
 
@@ -39,6 +38,7 @@ namespace assignment3
 		: mMin(std::numeric_limits<T>().max())
 		, mMax(std::numeric_limits<T>().lowest())
 		, mSum(0)
+		, mSumSquare(0)
 		, mCount(0)
 	{
 	}
@@ -76,13 +76,18 @@ namespace assignment3
 	template<typename T>
 	double SmartBase<T>::StandardDeviation()
 	{
-		return round(std::sqrt(mVariance));
+		double avg = (double)mSum / mCount;
+		double variance = ((double)mSumSquare / mCount) - (avg * avg);
+
+		return round(std::sqrt(variance));
 	}
 
 	template<typename T>
 	double SmartBase<T>::Variance()
 	{
-		return round(mVariance);
+		double avg = (double)mSum / mCount;
+
+		return round(((double)mSumSquare / mCount) - (avg * avg));
 	}
 
 }

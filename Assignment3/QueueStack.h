@@ -20,10 +20,11 @@ namespace assignment3
 		unsigned int StackCount();
 
 		T Peek() override;
-		double CalculateVariance() override;
 
 	private:
 		std::queue<std::stack<T>*> mQueueStack;
+		std::stack<T> mMaxStack;
+		std::stack<T> mMinStack;
 		size_t mMaxSize;
 	};
 
@@ -47,17 +48,20 @@ namespace assignment3
 	template<typename T>
 	void QueueStack<T>::Enqueue(T value)
 	{
-		if (this->mMax < value)
+		if (this->mMax <= value)
 		{
 			this->mMax = value;
+			mMaxStack.push(value);
 		}
 
-		if (this->mMin > value)
+		if (this->mMin >= value)
 		{
 			this->mMin = value;
+			mMinStack.push(value);
 		}
 
 		this->mSum += value;
+		this->mSumSquare += (value * value);
 		this->mCount++;
 
 		std::stack<T>* insertStack = nullptr;
@@ -102,12 +106,6 @@ namespace assignment3
 	}
 
 	template<typename T>
-	double QueueStack<T>::CalculateVariance()
-	{
-		return 0.0;
-	}
-
-	template<typename T>
 	T QueueStack<T>::Dequeue()
 	{
 		std::stack<T>* stack = mQueueStack.front();
@@ -115,44 +113,35 @@ namespace assignment3
 		T value = stack->top();
 		stack->pop();
 
+		this->mSumSquare -= (value * value);
+		this->mSum -= value;
+		this->mCount--;
+
 		if (stack->size() == 0)
 		{
 			delete stack;
 			mQueueStack.pop();
 		}
 
-		this->mMin = std::numeric_limits<T>().max();
-		this->mMax = std::numeric_limits<T>().lowest();
-
-		if (mQueueStack.empty() == false)
+		if (this->mCount == 0)
 		{
-			std::queue<std::stack<T>*> clone = mQueueStack;
-
-			while (clone.empty() == false)
+			this->mMin = std::numeric_limits<T>().max();
+			this->mMax = std::numeric_limits<T>().lowest();
+		}
+		else
+		{
+			if (this->mMax == value)
 			{
-				std::stack<T> tmp = *clone.front();
-				clone.pop();
+				mMaxStack.pop();
+				this->mMax = mMaxStack.top();
+			}
 
-				while (tmp.empty() == false)
-				{
-					T top = tmp.top();
-					tmp.pop();
-
-					if (this->mMin > top)
-					{
-						this->mMin = top;
-					}
-
-					if (this->mMax < top)
-					{
-						this->mMax = top;
-					}
-				}
+			if (this->mMin == value)
+			{
+				mMinStack.pop();
+				this->mMin = mMaxStack.top();
 			}
 		}
-
-		this->mSum -= value;
-		this->mCount--;
 
 		return value;
 	}

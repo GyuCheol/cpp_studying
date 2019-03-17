@@ -16,10 +16,11 @@ namespace assignment3
 		void Push(const T& value);
 		T Pop();
 		T Peek() override;
-		double CalculateVariance() override;
 
 	private:
 		std::stack<T> mStack;
+		std::stack<T> mMaxStack;
+		std::stack<T> mMinStack;
 	};
 
 	template<typename T> SmartStack<T>::SmartStack() 
@@ -30,20 +31,23 @@ namespace assignment3
 	template<typename T>
 	void SmartStack<T>::Push(const T& value)
 	{
-		if (this->mMax < value)
+		
+		if (this->mMax <= value)
 		{
 			this->mMax = value;
+			mMaxStack.push(value);
 		}
 
-		if (this->mMin > value)
+		if (this->mMin >= value)
 		{
 			this->mMin = value;
+			mMinStack.push(value);
 		}
 
 		this->mSum += value;
+		this->mSumSquare += (value * value);
 		this->mCount++;
 		mStack.push(value);
-		this->mVariance = CalculateVariance();
 	}
 
 	template<typename T>
@@ -53,31 +57,28 @@ namespace assignment3
 		mStack.pop();
 
 		this->mSum -= top;
+		this->mSumSquare -= (top * top);
 		this->mCount--;
 
-		std::stack<T> clone = mStack;
-
-		this->mMin = std::numeric_limits<T>().max();
-		this->mMax = std::numeric_limits<T>().lowest();
-
-		while (clone.empty() == false)
+		if (this->mCount == 0)
 		{
-			T top = clone.top();
-
-			clone.pop();
-
-			if (this->mMax < top)
+			this->mMin = std::numeric_limits<T>().max();
+			this->mMax = std::numeric_limits<T>().lowest();
+		}
+		else
+		{
+			if (this->mMax == top)
 			{
-				this->mMax = top;
+				mMaxStack.pop();
+				this->mMax = mMaxStack.top();
 			}
 
-			if (this->mMin > top)
+			if (this->mMin == top)
 			{
-				this->mMin = top;
+				mMinStack.pop();
+				this->mMin = mMaxStack.top();
 			}
 		}
-
-		this->mVariance = CalculateVariance();
 
 		return top;
 	}
@@ -86,29 +87,6 @@ namespace assignment3
 	T SmartStack<T>::Peek()
 	{
 		return mStack.top();
-	}
-
-	template<typename T>
-	double SmartStack<T>::CalculateVariance()
-	{
-		if (this->mCount == 0) {
-			return 0.0;
-		}
-
-		double varianceSum = 0;
-		double avg = (double)this->mSum / this->mCount;
-		std::stack<T> clone = mStack;
-
-		while (clone.empty() == false)
-		{
-			T top = clone.top();
-
-			clone.pop();
-
-			varianceSum += std::pow(top - avg, 2);
-		}
-
-		return varianceSum / this->mCount;
 	}
 
 }

@@ -248,9 +248,6 @@ void test6()
 		qs.Dequeue();
 	}
 
-	assert(qs.Min() == std::numeric_limits<int>().max());
-	assert(qs.Max() == std::numeric_limits<int>().lowest());
-
 	assert(qs.Sum() == 0);
 	assert(qs.Count() == 0);
 

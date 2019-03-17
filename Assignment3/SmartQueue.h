@@ -1,6 +1,7 @@
 #pragma once
 
 #include <queue>
+#include <stack>
 
 #include "SmartBase.h"
 
@@ -16,10 +17,11 @@ namespace assignment3
 		void Enqueue(T value);
 		T Dequeue();
 		T Peek() override;
-		double CalculateVariance() override;
 
 	private:
 		std::queue<T> mQueue;
+		std::stack<T> mMaxStack;
+		std::stack<T> mMinStack;
 		
 	};
 
@@ -31,20 +33,22 @@ namespace assignment3
 	template<typename T>
 	void SmartQueue<T>::Enqueue(T value)
 	{
-		if (this->mMax < value)
+		if (this->mMax <= value)
 		{
 			this->mMax = value;
+			mMaxStack.push(value);
 		}
 
-		if (this->mMin > value)
+		if (this->mMin >= value)
 		{
 			this->mMin = value;
+			mMinStack.push(value);
 		}
 
 		this->mSum += value;
+		this->mSumSquare += (value * value);
 		this->mCount++;
 		mQueue.push(value);
-		this->mVariance = CalculateVariance();
 	}
 
 	template<typename T>
@@ -54,28 +58,26 @@ namespace assignment3
 		mQueue.pop();
 
 		this->mSum -= front;
+		this->mSumSquare -= (front * front);
 		this->mCount--;
 
-		std::queue<T> clone = mQueue;
-		this->mVariance = CalculateVariance();
-
-		this->mMin = std::numeric_limits<T>().max();
-		this->mMax = std::numeric_limits<T>().lowest();
-
-		while (clone.empty() == false)
+		if (this->mCount == 0)
 		{
-			T front = clone.front();
-
-			clone.pop();
-
-			if (this->mMax < front)
+			this->mMin = std::numeric_limits<T>().max();
+			this->mMax = std::numeric_limits<T>().lowest();
+		}
+		else
+		{
+			if (this->mMax == front)
 			{
-				this->mMax = front;
+				mMaxStack.pop();
+				this->mMax = mMaxStack.top();
 			}
 
-			if (this->mMin > front)
+			if (this->mMin == front)
 			{
-				this->mMin = front;
+				mMinStack.pop();
+				this->mMin = mMaxStack.top();
 			}
 		}
 
@@ -86,29 +88,6 @@ namespace assignment3
 	T SmartQueue<T>::Peek()
 	{
 		return mQueue.front();
-	}
-
-	template<typename T>
-	double SmartQueue<T>::CalculateVariance()
-	{
-		if (this->mCount == 0) {
-			return 0.0;
-		}
-
-		double varianceSum = 0;
-		double avg = (double)this->mSum / this->mCount;
-		std::queue<T> clone = mQueue;
-
-		while (clone.empty() == false)
-		{
-			T front = clone.front();
-
-			clone.pop();
-
-			varianceSum += std::pow(front - avg, 2);
-		}
-
-		return varianceSum / this->mCount;
 	}
 
 }
