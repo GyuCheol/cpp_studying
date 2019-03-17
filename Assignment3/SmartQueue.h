@@ -24,7 +24,8 @@ namespace assignment3
 	};
 
 	template<typename T>
-	SmartQueue<T>::SmartQueue() : SmartBase<T>()
+	SmartQueue<T>::SmartQueue()
+		: SmartBase<T>()
 	{
 	}
 

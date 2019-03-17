@@ -20,7 +20,7 @@ namespace assignment3
 		unsigned int StackCount();
 
 		T Peek() override;
-		double Variance() override { return 0; };
+		double Variance() override;
 
 	private:
 		std::queue<std::stack<T>*> mQueueStack;
@@ -101,6 +101,12 @@ namespace assignment3
 		std::stack<T>* stack = mQueueStack.front();
 
 		return stack->top();
+	}
+
+	template<typename T>
+	double QueueStack<T>::Variance()
+	{
+		return 0.0;
 	}
 
 	template<typename T>
