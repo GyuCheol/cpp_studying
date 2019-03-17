@@ -2,7 +2,6 @@
 
 #include <stack>
 
-#include "Utils.h"
 #include "SmartBase.h"
 
 namespace assignment3
@@ -103,7 +102,7 @@ namespace assignment3
 			varianceSum += std::pow(top - avg, 2);
 		}
 
-		return utils::round<double>(varianceSum / this->mCount, 3.0);
+		return round<double>(varianceSum / this->mCount, 3.0);
 	}
 
 }

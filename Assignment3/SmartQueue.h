@@ -102,7 +102,7 @@ namespace assignment3
 			varianceSum += std::pow(front - avg, 2);
 		}
 
-		return utils::round<double>(varianceSum / this->mCount, 3.0);
+		return round<double>(varianceSum / this->mCount, 3.0);
 	}
 
 

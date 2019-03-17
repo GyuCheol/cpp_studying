@@ -13,6 +13,7 @@ namespace assignment3
 	{
 	public:
 		QueueStack(size_t maxSize);
+		~QueueStack();
 
 		void Enqueue(T value);
 		T Dequeue();
@@ -22,7 +23,7 @@ namespace assignment3
 		double Variance() override { return 0; };
 
 	private:
-		std::queue<std::stack<T>> mQueueStack;
+		std::queue<std::stack<T>*> mQueueStack;
 		size_t mMaxSize;
 	};
 
@@ -31,6 +32,18 @@ namespace assignment3
 		: SmartBase<T>()
 		, mMaxSize(maxSize)
 	{
+	}
+
+	template<typename T>
+	QueueStack<T>::~QueueStack()
+	{
+		while (mQueueStack.empty() == false)
+		{
+			std::stack<T>* front = mQueueStack.front();
+
+			mQueueStack.pop();
+			delete front;
+		}
 	}
 
 	template<typename T>
@@ -53,17 +66,29 @@ namespace assignment3
 
 		if (mQueueStack.empty() == true)
 		{
-			mQueueStack.push(std::stack<T>());
-			insertStack = &mQueueStack.back();
+			insertStack = new std::stack<T>();
+
+			mQueueStack.push(insertStack);
 		}
 		else
 		{
-			insertStack = &mQueueStack.front();
+			std::queue<std::stack<T>*> clone = mQueueStack;
 
-			if (insertStack->size() == mMaxSize)
+			insertStack = clone.front();
+
+			while (insertStack->size() == mMaxSize)
 			{
-				mQueueStack.push(std::stack<T>());
-				insertStack = &mQueueStack.back();
+				clone.pop();
+
+				if (clone.empty() == true)
+				{
+					insertStack = new std::stack<T>();
+
+					mQueueStack.push(insertStack);
+					break;
+				}
+
+				insertStack = clone.front();
 			}
 		}
 
@@ -73,18 +98,59 @@ namespace assignment3
 	template<typename T>
 	T QueueStack<T>::Peek()
 	{
-		std::stack<T>& stack = mQueueStack.front();
+		std::stack<T>* stack = mQueueStack.front();
 
-		return stack.top();
+		return stack->top();
 	}
 
 	template<typename T>
 	T QueueStack<T>::Dequeue()
 	{
-		return T();
+		std::stack<T>* stack = mQueueStack.front();
+
+		T value = stack->top();
+		stack->pop();
+
+		if (stack->size() == 0)
+		{
+			delete stack;
+			mQueueStack.pop();
+		}
+
+		this->mMin = std::numeric_limits<T>().max();
+		this->mMax = std::numeric_limits<T>().min();
+
+		if (mQueueStack.empty() == false)
+		{
+			std::queue<std::stack<T>*> clone = mQueueStack;
+
+			while (clone.empty() == false)
+			{
+				std::stack<T> tmp = *clone.front();
+				clone.pop();
+
+				while (tmp.empty() == false)
+				{
+					T top = tmp.top();
+					tmp.pop();
+
+					if (this->mMin > top)
+					{
+						this->mMin = top;
+					}
+
+					if (this->mMax < top)
+					{
+						this->mMax = top;
+					}
+				}
+			}
+		}
+
+		this->mCount--;
+
+		return value;
 	}
-
-
 
 	template<typename T>
 	inline unsigned int QueueStack<T>::StackCount()

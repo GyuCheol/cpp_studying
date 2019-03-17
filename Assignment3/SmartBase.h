@@ -1,9 +1,18 @@
 #pragma once
 
 #include <limits>
+#include <cmath>
 
 namespace assignment3
 {
+
+	template<typename T>
+	T round(T number, T point)
+	{
+		T pow = static_cast<T>(std::pow(10, point));
+
+		return static_cast<T>(std::round(number * pow) / pow);
+	}
 
 	template<typename T>
 	class SmartBase
@@ -51,7 +60,7 @@ namespace assignment3
 	template<typename T>
 	T SmartBase<T>::Sum()
 	{
-		return utils::round<T>(mSum, 3);
+		return round<T>(mSum, 3);
 	}
 
 	template<typename T>
@@ -63,13 +72,13 @@ namespace assignment3
 	template<typename T>
 	double SmartBase<T>::Average()
 	{
-		return utils::round<double>((double)mSum / mCount, 3.0);
+		return round<double>((double)mSum / mCount, 3.0);
 	}
 
 	template<typename T>
 	double SmartBase<T>::StandardDeviation()
 	{
-		return utils::round(std::sqrt(Variance()), 3.0);
+		return round(std::sqrt(Variance()), 3.0);
 	}
 
 }
