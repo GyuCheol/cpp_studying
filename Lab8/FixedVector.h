@@ -1,9 +1,11 @@
 #pragma once
 
-namespace lab8 {
+namespace lab8
+{
 
 	template <typename T, size_t N>
-	class FixedVector {
+	class FixedVector
+	{
 	public:
 		bool Add(T value);
 		bool Remove(T find);
@@ -47,7 +49,7 @@ namespace lab8 {
 
 		for (size_t i = id; i < mSIze - 1; i++)
 		{
-			mValues[i] = mValues[i+1];
+			mValues[i] = mValues[i + 1];
 		}
 
 		mSIze--;

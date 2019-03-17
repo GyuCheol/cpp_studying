@@ -2,10 +2,12 @@
 
 #include <cstdint>
 
-namespace lab8 {
+namespace lab8
+{
 
 	template <size_t N>
-	class FixedVector<bool, N> {
+	class FixedVector<bool, N>
+	{
 	public:
 		
 		bool Add(bool value);
