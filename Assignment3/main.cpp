@@ -353,6 +353,65 @@ void test9()
 
 	ss.Pop();
 	assert(ss.Count() == 0);
+
+	QueueStack<int> qs3(3);
+	assert(qs3.Max() == INT_MIN);
+	assert(qs3.Min() == INT_MAX);
+	qs3.Enqueue(1); // [1]
+	assert(qs3.Peek() == 1);
+	qs3.Enqueue(1); // [1,1]
+	assert(qs3.Peek() == 1);
+	qs3.Enqueue(4); // [1,1,4]
+	assert(qs3.Peek() == 4);
+	qs3.Enqueue(3); // [1,1,4],[3]
+	assert(qs3.Peek() == 4);
+	qs3.Enqueue(3); // [1,1,4],[3,3]
+	assert(qs3.Peek() == 4);
+	qs3.Enqueue(0); // [1,1,4],[3,3,0]
+	assert(qs3.Peek() == 4);
+	qs3.Enqueue(2); // [1,1,4],[3,3,0],[2]
+	assert(qs3.Peek() == 4);
+	qs3.Enqueue(2); // [1,1,4],[3,3,0],[2,2]
+	assert(qs3.Peek() == 4);
+	qs3.Enqueue(2); // [1,1,4],[3,3,0],[2,2,2]
+	assert(qs3.Peek() == 4);
+	qs3.Enqueue(2); // [1,1,4],[3,3,0],[2,2,2],[2]
+	assert(qs3.Peek() == 4);
+	assert(qs3.Max() == 4);
+	assert(qs3.Min() == 0);
+	qs3.Dequeue(); // [1,1],[3,3,0],[2,2,2],[2]
+	assert(qs3.Peek() == 1);
+	qs3.Dequeue(); // [1],[3,3,0],[2,2,2],[2]
+	assert(qs3.Peek() == 1);
+	qs3.Dequeue(); // [3,3,0],[2,2,2],[2]
+	assert(qs3.Peek() == 0);
+	assert(qs3.Max() == 3);
+	assert(qs3.Min() == 0);
+	assert(qs3.Count() == 7);
+	assert(qs3.StackCount() == 3);
+	qs3.Dequeue(); // [3,3],[2,2,2],[2]
+	assert(qs3.Peek() == 3);
+	qs3.Dequeue(); // [3],[2,2,2],[2]
+	assert(qs3.Peek() == 3);
+	qs3.Dequeue(); // [2,2,2],[2]
+	assert(qs3.Peek() == 2);
+	assert(qs3.Max() == 2);
+	assert(qs3.Min() == 2);
+	assert(qs3.Count() == 4);
+	assert(qs3.StackCount() == 2);
+	qs3.Dequeue(); // [2,2],[2]
+	assert(qs3.Peek() == 2);
+	qs3.Dequeue(); // [2],[2]
+	assert(qs3.Peek() == 2);
+	qs3.Dequeue(); // [2]
+	assert(qs3.Peek() == 2);
+	assert(qs3.Count() == 1);
+	assert(qs3.StackCount() == 1);
+	qs3.Dequeue(); //
+	assert(qs3.Max() == INT_MIN);
+	assert(qs3.Min() == INT_MAX);
+	assert(qs3.Count() == 0);
+	assert(qs3.StackCount() == 0);
 }
 
 int main()
