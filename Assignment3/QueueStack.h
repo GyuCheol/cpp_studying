@@ -27,15 +27,13 @@ namespace assignment3
 		size_t mMaxSize;
 	};
 
-	template<typename T>
-	QueueStack<T>::QueueStack(size_t maxSize)
+	template<typename T> QueueStack<T>::QueueStack(size_t maxSize)
 		: SmartBase<T>()
 		, mMaxSize(maxSize)
 	{
 	}
 
-	template<typename T>
-	QueueStack<T>::~QueueStack()
+	template<typename T> QueueStack<T>::~QueueStack()
 	{
 		while (mQueueStack.empty() == false)
 		{
@@ -159,7 +157,7 @@ namespace assignment3
 	}
 
 	template<typename T>
-	inline unsigned int QueueStack<T>::StackCount()
+	unsigned int QueueStack<T>::StackCount()
 	{
 		return mQueueStack.size();
 	}

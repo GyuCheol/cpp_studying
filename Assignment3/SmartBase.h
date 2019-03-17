@@ -38,8 +38,7 @@ namespace assignment3
 		unsigned int mCount;
 	};
 
-	template<typename T>
-	SmartBase<T>::SmartBase()
+	template<typename T> SmartBase<T>::SmartBase()
 		: mMin(std::numeric_limits<T>().max())
 		, mMax(std::numeric_limits<T>().lowest())
 		, mSum(0)
@@ -84,7 +83,7 @@ namespace assignment3
 	}
 
 	template<typename T>
-	inline double SmartBase<T>::Variance()
+	double SmartBase<T>::Variance()
 	{
 		return mVariance;
 	}

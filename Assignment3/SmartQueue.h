@@ -23,14 +23,13 @@ namespace assignment3
 		
 	};
 
-	template<typename T>
-	SmartQueue<T>::SmartQueue()
+	template<typename T> SmartQueue<T>::SmartQueue()
 		: SmartBase<T>()
 	{
 	}
 
 	template<typename T>
-	inline void SmartQueue<T>::Enqueue(T value)
+	void SmartQueue<T>::Enqueue(T value)
 	{
 		if (this->mMax < value)
 		{
@@ -49,7 +48,7 @@ namespace assignment3
 	}
 
 	template<typename T>
-	inline T SmartQueue<T>::Dequeue()
+	T SmartQueue<T>::Dequeue()
 	{
 		T front = mQueue.front();
 		mQueue.pop();
@@ -62,6 +61,7 @@ namespace assignment3
 
 		this->mMin = std::numeric_limits<T>().max();
 		this->mMax = std::numeric_limits<T>().lowest();
+
 		while (clone.empty() == false)
 		{
 			T front = clone.front();

@@ -22,8 +22,7 @@ namespace assignment3
 		std::stack<T> mStack;
 	};
 
-	template<typename T>
-	SmartStack<T>::SmartStack() 
+	template<typename T> SmartStack<T>::SmartStack() 
 		: SmartBase<T>()
 	{
 	}
