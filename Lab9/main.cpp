@@ -5,6 +5,14 @@
 
 using namespace lab9;
 
+void test()
+{
+	ObjectPool<IceCube> pool(10);
+
+	
+
+}
+
 int main()
 {
 	ObjectPool<IceCube> pool(3);

@@ -11,7 +11,7 @@ namespace lab9
 	public:
 		ObjectPool(size_t maxPoolSize);
 		ObjectPool(const ObjectPool& pool) = delete;
-		ObjectPool& operator=(const Game&) = delete;
+		ObjectPool& operator=(const ObjectPool&) = delete;
 		~ObjectPool();
 		T* Get();
 		void Return(T* ptr);
