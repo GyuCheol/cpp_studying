@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include <queue>
 
 namespace lab9
 {
@@ -20,21 +20,21 @@ namespace lab9
 
 	private:
 		size_t mMaxPoolSize;
-		std::vector<T*> mFreeObjects;
+		std::queue<T*> mFreeObjectQueue;
 	};
 
 
 	template<typename T> ObjectPool<T>::ObjectPool(size_t maxPoolSize)
 		: mMaxPoolSize(maxPoolSize)
 	{
-		mFreeObjects.reserve(maxPoolSize);
 	}
 
 	template<typename T> ObjectPool<T>::~ObjectPool()
 	{
-		for (auto it = mFreeObjects.begin(); it != mFreeObjects.end(); it++)
+		while (mFreeObjectQueue.empty() == false)
 		{
-			delete *it;
+			delete mFreeObjectQueue.front();
+			mFreeObjectQueue.pop();
 		}
 	}
 
@@ -46,8 +46,8 @@ namespace lab9
 			return new T();
 		}
 		
-		T* back = *mFreeObjects.rbegin();
-		mFreeObjects.pop_back();
+		T* back = mFreeObjectQueue.front();
+		mFreeObjectQueue.pop();
 
 		return back;
 	}
@@ -61,13 +61,13 @@ namespace lab9
 			return;
 		}
 
-		mFreeObjects.push_back(ptr);
+		mFreeObjectQueue.push(ptr);
 	}
 
 	template<typename T>
 	size_t ObjectPool<T>::GetFreeObjectCount()
 	{
-		return mFreeObjects.size();
+		return mFreeObjectQueue.size();
 	}
 
 	template<typename T>

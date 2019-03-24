@@ -32,6 +32,24 @@ void test()
 
 }
 
+void test2()
+{
+	ObjectPool<IceCube> pool(5);
+
+	IceCube* i1 = pool.Get();
+	IceCube* i2 = pool.Get();
+	IceCube* i3 = pool.Get();
+	IceCube* i4 = pool.Get();
+	IceCube* i5 = pool.Get();
+
+	pool.Return(i1);
+	pool.Return(i2);
+	pool.Return(i3);
+	pool.Return(i4);
+	pool.Return(i5);
+
+}
+
 void defaultTest()
 {
 	ObjectPool<IceCube> pool(3);
@@ -103,4 +121,5 @@ int main()
 {
 	defaultTest();
 	test();
+	test2();
 }
