@@ -7,13 +7,32 @@ using namespace lab9;
 
 void test()
 {
-	ObjectPool<IceCube> pool(10);
+	ObjectPool<IceCube> pool(1);
 
-	
+	IceCube* i1 = pool.Get();
+
+	i1->Initialize(5);
+
+	pool.Return(i1);
+
+	IceCube* i2 = pool.Get();
+
+	assert(i1 == i2);
+
+	IceCube* i3 = pool.Get();
+
+	pool.Return(i1);
+
+	assert(pool.GetFreeObjectCount() == 1);
+
+	pool.Return(i3);
+
+	assert(pool.GetFreeObjectCount() == 1);
+
 
 }
 
-int main()
+void defaultTest()
 {
 	ObjectPool<IceCube> pool(3);
 
@@ -78,4 +97,10 @@ int main()
 	assert(i6 == i5);
 
 	op2.Return(i6);
+}
+
+int main()
+{
+	defaultTest();
+	test();
 }

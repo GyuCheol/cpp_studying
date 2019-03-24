@@ -55,6 +55,12 @@ namespace lab9
 	template<typename T>
 	void ObjectPool<T>::Return(T* ptr)
 	{
+		if (GetFreeObjectCount() == mMaxPoolSize)
+		{
+			delete ptr;
+			return;
+		}
+
 		mFreeObjects.push_back(ptr);
 	}
 
