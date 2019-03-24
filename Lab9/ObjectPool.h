@@ -11,6 +11,7 @@ namespace lab9
 	public:
 		ObjectPool(size_t maxPoolSize);
 		ObjectPool(const ObjectPool& pool) = delete;
+		ObjectPool& operator=(const Game&) = delete;
 		~ObjectPool();
 		T* Get();
 		void Return(T* ptr);
@@ -29,8 +30,7 @@ namespace lab9
 		mFreeObjects.reserve(maxPoolSize);
 	}
 
-	template<typename T>
-	ObjectPool<T>::~ObjectPool()
+	template<typename T> ObjectPool<T>::~ObjectPool()
 	{
 		for (auto it = mFreeObjects.begin(); it != mFreeObjects.end(); it++)
 		{
@@ -39,7 +39,7 @@ namespace lab9
 	}
 
 	template<typename T>
-	T * ObjectPool<T>::Get()
+	T* ObjectPool<T>::Get()
 	{
 		if (GetFreeObjectCount() == 0)
 		{
@@ -53,7 +53,7 @@ namespace lab9
 	}
 
 	template<typename T>
-	void ObjectPool<T>::Return(T * ptr)
+	void ObjectPool<T>::Return(T* ptr)
 	{
 		mFreeObjects.push_back(ptr);
 	}
