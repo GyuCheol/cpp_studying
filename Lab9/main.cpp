@@ -48,6 +48,10 @@ void test2()
 	pool.Return(i4);
 	pool.Return(i5);
 
+	IceCube* i6 = pool.Get();
+
+	assert(i6 == i1);
+
 }
 
 void defaultTest()
