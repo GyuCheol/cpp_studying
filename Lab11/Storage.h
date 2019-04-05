@@ -26,8 +26,11 @@ namespace lab11
 	};
 
 	template<typename T> Storage<T>::Storage(unsigned int length)
-		: Storage(length, 0)
+		: mSize(length)
 	{
+		mDataPtr.reset(new T[length]);
+
+		std::memset(mDataPtr.get(), 0, sizeof(T) * length);
 	}
 
 	template<typename T> Storage<T>::Storage(unsigned int length, const T& initialValue)

@@ -5,6 +5,12 @@
 
 using namespace lab11;
 
+class T
+{
+public:
+	int a;
+};
+
 void test2()
 {
 	Storage<int> storage1(100, 5);
@@ -36,6 +42,9 @@ void test2()
 	assert(storage3.GetData()[0] == 5);
 	assert(storage5.GetSize() == 100);
 	assert(storage5.GetData()[0] == 5);
+
+	Storage<T> storage6(100);
+
 
 }
 
