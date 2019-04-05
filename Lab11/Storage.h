@@ -11,10 +11,10 @@ namespace lab11
 		Storage(unsigned int length);
 		Storage(unsigned int length, const T& initialValue);
 		Storage(Storage<T>&& other);
-		Storage(Storage<T>& other);
+		Storage(const Storage<T>& other);
 
 		Storage<T>& operator=(Storage<T>&& other);
-		Storage<T>& operator=(const Storage<T>& other);
+		Storage<T>& operator=(Storage<T>& other);
 
 		bool Update(unsigned int index, const T& data);
 		const std::unique_ptr<T[]>& GetData() const;
@@ -51,7 +51,7 @@ namespace lab11
 		}
 	}
 
-	template<typename T> Storage<T>::Storage(Storage<T>& other)
+	template<typename T> Storage<T>::Storage(const Storage<T>& other)
 		: mSize(other.mSize)
 	{
 		mDataPtr.reset(new T[mSize]);
@@ -73,7 +73,7 @@ namespace lab11
 	}
 
 	template<typename T>
-	Storage<T>& Storage<T>::operator=(const Storage<T>& other)
+	Storage<T>& Storage<T>::operator=(Storage<T>& other)
 	{
 		if (this != &other)
 		{
