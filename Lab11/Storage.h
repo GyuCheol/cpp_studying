@@ -23,6 +23,7 @@ namespace lab11
 	private:
 		std::unique_ptr<T[]> mDataPtr;
 		unsigned int mSize;
+		
 	};
 
 	template<typename T> Storage<T>::Storage(unsigned int length)
@@ -73,6 +74,8 @@ namespace lab11
 			other.mSize = 0;
 			mDataPtr = std::move(other.mDataPtr);
 		}
+
+		return *this;
 	}
 
 	template<typename T>
@@ -116,4 +119,5 @@ namespace lab11
 	{
 		return mSize;
 	}
+	
 }

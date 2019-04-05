@@ -21,7 +21,9 @@ void test2()
 
 	assert(storage2.GetData()[0] == 5);
 
-	Storage<int> storage3 = std::move(storage2);
+	Storage<int> storage3(0);
+
+	storage3 = std::move(storage2);
 
 	assert(storage2.GetSize() == 0);
 	assert(storage3.GetSize() == 100);
@@ -43,8 +45,13 @@ void test2()
 	assert(storage5.GetSize() == 100);
 	assert(storage5.GetData()[0] == 5);
 
-	Storage<T> storage6(100);
+	Storage<int> storage6(100);
 
+	storage6 = std::move(storage5);
+	assert(storage5.GetSize() == 0);
+	assert(storage5.GetData().get() == nullptr);
+	assert(storage6.GetSize() == 100);
+	assert(storage6.GetData()[0] == 5);
 
 }
 
