@@ -14,7 +14,7 @@ namespace lab11
 		Storage(Storage<T>& other);
 
 		Storage<T>& operator=(Storage<T>&& other);
-		Storage<T>& operator=(Storage<T>& other);
+		Storage<T>& operator=(const Storage<T>& other);
 
 		bool Update(unsigned int index, const T& data);
 		const std::unique_ptr<T[]>& GetData() const;
@@ -73,7 +73,7 @@ namespace lab11
 	}
 
 	template<typename T>
-	Storage<T>& Storage<T>::operator=(Storage<T>& other)
+	Storage<T>& Storage<T>::operator=(const Storage<T>& other)
 	{
 		if (this != &other)
 		{
