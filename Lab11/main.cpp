@@ -1,13 +1,19 @@
 #include <cassert>
+#include <iostream>
 #include <vector>
 
 #include "Storage.h"
 
 using namespace lab11;
 
-class T
+class Test
 {
 public:
+	Test()
+		: a(10)
+	{
+	}
+
 	int a;
 };
 
@@ -53,10 +59,21 @@ void test2()
 	assert(storage6.GetSize() == 100);
 	assert(storage6.GetData()[0] == 5);
 
+	Test t;
+	Storage<Test> storage7(100, t);
 }
 
 int main()
 {
+	int a = 0;
+	int& b = a;
+
+	b = 10;
+
+	std::cout << a << "," << b << std::endl;
+
+	std::system("pause");
+
 	test2();
 
 	const unsigned int SIZE = 10000;
