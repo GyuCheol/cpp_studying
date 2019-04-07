@@ -7,6 +7,17 @@
 
 using namespace assignment4;
 
+template<typename T>
+void printVector(const std::vector<T>& v)
+{
+	for (auto it : v)
+	{
+		std::cout << it << " ";
+	}
+
+	std::cout << std::endl;
+}
+
 void test1()
 {
 	BinarySearchTree<int> tree;
@@ -44,6 +55,27 @@ void test1()
 
 void test3()
 {
+	BinarySearchTree<int> tree;
+
+	tree.Insert(std::make_unique<int>(10));
+	tree.Insert(std::make_unique<int>(15));
+	tree.Insert(std::make_unique<int>(5));
+	tree.Insert(std::make_unique<int>(6));
+	tree.Insert(std::make_unique<int>(4));
+	tree.Insert(std::make_unique<int>(19));
+	tree.Insert(std::make_unique<int>(20));
+	tree.Insert(std::make_unique<int>(17));
+	tree.Insert(std::make_unique<int>(12));
+	tree.Insert(std::make_unique<int>(11));
+	tree.Insert(std::make_unique<int>(14));
+
+	printVector(tree.TraverseInOrder(tree.GetRootNode().lock()));
+	tree.Delete(10);
+	printVector(tree.TraverseInOrder(tree.GetRootNode().lock()));
+	tree.Delete(5);
+	printVector(tree.TraverseInOrder(tree.GetRootNode().lock()));
+	tree.Delete(15);
+	printVector(tree.TraverseInOrder(tree.GetRootNode().lock()));
 
 }
 

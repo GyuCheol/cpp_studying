@@ -115,7 +115,14 @@ namespace assignment4
 				break;
 			}
 
-			tmp = (*tmp->Data >= data) ? tmp->Left : tmp->Right;
+			if (*tmp->Data >= data)
+			{
+				tmp = tmp->Left;
+			}
+			else
+			{
+				tmp = tmp->Right;
+			}
 		}
 
 		std::shared_ptr<TreeNode<T>> parent = tmp->Parent.lock();
@@ -167,7 +174,7 @@ namespace assignment4
 				if (tmp2->Right == nullptr)
 				{
 					tmp2->Right = tmp->Right;
-					// ?
+					tmp->Right->Parent = tmp2;
 					break;
 				}
 
